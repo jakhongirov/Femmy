@@ -78,7 +78,7 @@ module.exports = {
             avarage_period,
             cycle_duration
          } = req.body
-         const checkUser = await model.checkUser(phone_number)
+         const checkUser = await model.checkUser(phone_number.replace(/^(\+)?/, '+'))
 
          if (checkUser) {
             return res.status(302).json({
@@ -91,7 +91,7 @@ module.exports = {
                name,
                age,
                model_id,
-               phone_number,
+               phone_number.replace(/^(\+)?/, '+'),
                pass_hash,
                avarage_period,
                cycle_duration
@@ -113,7 +113,7 @@ module.exports = {
                   status: 400,
                   message: "Bad request"
                });
-            } 
+            }
          }
 
       } catch (error) {
@@ -131,10 +131,8 @@ module.exports = {
             phone_number,
             password
          } = req.body
-         let phoneNumber = phone_number?.replace(/\s+/g, '');
-         const checkUser = await model.checkUser(phoneNumber)
-         console.log(phoneNumber)
-         console.log(checkUser)
+
+         const checkUser = await model.checkUser(phone_number.replace(/^(\+)?/, '+'))
 
          if (checkUser) {
             const validPass = await bcryptjs.compare(password, checkUser?.password)
@@ -219,7 +217,7 @@ module.exports = {
          }
 
          if (phone_number) {
-            const editPhoneNumber = await model.editPhoneNumber(id, phone_number)
+            const editPhoneNumber = await model.editPhoneNumber(id, phone_number.replace(/^(\+)?/, '+'))
             if (editPhoneNumber) {
                return userData = editPhoneNumber
             } else {
