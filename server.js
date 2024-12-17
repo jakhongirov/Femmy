@@ -15,6 +15,8 @@ const router = require("./src/modules");
 const TelegramBot = require('node-telegram-bot-api')
 const bcryptjs = require('bcryptjs')
 const model = require('./model')
+const botText = require('./text.json')
+const { generateOTP } = require('./src/lib/functions')
 
 const publicFolderPath = path.join(__dirname, 'public');
 const imagesFolderPath = path.join(publicFolderPath, 'images');
@@ -32,6 +34,96 @@ if (!fs.existsSync(imagesFolderPath)) {
 } else {
    console.log('Images folder already exists within the public folder.');
 }
+
+const bot = new TelegramBot(process.env.BOT_TOKEN, {
+   polling: true
+});
+
+bot.onText(/\/start ?(.*)?/, async (msg, match) => {
+   const chatId = msg.chat.id;
+   const param = match[1]?.trim();
+   const username = msg.from.first_name;
+   const foundUser = await model.foundUser(chatId)
+
+   if (foundUser) {
+      if (param == 'login') {
+         bot.sendMessage(chatId, botText.startTextLogin?.replace(/%%user%%/g, foundUser?.name), {
+            reply_markup: {
+               keyboard: [
+                  [
+                     {
+                        text: botText.sendContactBtn,
+                        request_contact: true
+                     }
+                  ]
+               ],
+               resize_keyboard: true,
+               one_time_keyboard: true
+            }
+         }).then(async () => {
+            await model.editStep(chatId, 'login')
+         })
+      }
+   } else {
+      bot.sendMessage(chatId, botText.startTextLogin?.replace(/%%user%%/g, username), {
+         reply_markup: {
+            keyboard: [
+               [
+                  {
+                     text: botText.sendContactBtn,
+                     request_contact: true
+                  }
+               ]
+            ],
+            resize_keyboard: true,
+            one_time_keyboard: true
+         }
+      }).then(async () => {
+         await model.createUser(
+            chatId,
+            "register"
+         )
+      })
+   }
+})
+
+bot.on('contact', async (msg) => {
+   const chatId = msg.chat.id;
+   const foundUser = await model.foundUser(chatId)
+   let phoneNumber = msg.contact.phone_number;
+
+   if (msg.contact && foundUser?.bot_step == 'start') {
+      if (!phoneNumber.startsWith('+')) {
+         phoneNumber = `+${phoneNumber}`;
+      }
+
+      const addPhoneNumber = await model.addPhoneNumber(
+         foundUser?.id,
+         phoneNumber
+      )
+
+      if (addPhoneNumber) {
+         bot.sendMessage(chatId, botText.askName)
+            .then(async () => {
+               await model.editStep(chatId, 'ask_name')
+
+            })
+      }
+
+   } else if (msg.contact && foundUser?.bot_step == 'login') {
+
+      if (!phoneNumber.startsWith('+')) {
+         phoneNumber = `+${phoneNumber}`;
+      }
+
+      if (foundUser?.phone_number == phoneNumber) {
+
+      } else {
+         
+      }
+
+   }
+})
 
 const options = {
    definition: {

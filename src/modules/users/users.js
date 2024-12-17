@@ -131,8 +131,8 @@ module.exports = {
             phone_number,
             password
          } = req.body
-         phone_number = phone_number?.replace(/\s+/g, '');
-         const checkUser = await model.checkUser(phone_number)
+         let phoneNumber = phone_number?.replace(/\s+/g, '');
+         const checkUser = await model.checkUser(phoneNumber)
 
          if (checkUser) {
             const validPass = await bcryptjs.compare(password, checkUser?.password)
