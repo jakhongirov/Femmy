@@ -311,6 +311,49 @@ module.exports = {
       }
    },
 
+   OTP: async (req, res) => {
+      try {
+         const { code } = req.body
+         const foundOtp = await model.foundOtp(code)
+
+         if (foundOtp) {
+            const foundUserChatId = await model.foundUserChatId(foundOtp?.chat_id)
+
+            if (foundUserChatId) {
+               const token = await new JWT({
+                  id: foundUserChatId?.id
+               }).sign()
+
+               return res.status(200).json({
+                  status: 200,
+                  message: "Success",
+                  data: foundUserChatId,
+                  token: token
+
+               })
+            } else {
+               return res.status(404).json({
+                  status: 404,
+                  message: "Not found"
+               })
+            }
+
+         } else {
+            return res.status(401).json({
+               status: 401,
+               message: "Expired code or invalid"
+            })
+         }
+
+      } catch (error) {
+         console.log(error);
+         return res.status(500).json({
+            status: 500,
+            message: "Interval Server Error"
+         })
+      }
+   },
+
    DELETE_USER: async (req, res) => {
       try {
          const { id } = req.body

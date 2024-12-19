@@ -226,6 +226,31 @@ const editHeight = (id, height) => {
 
    return fetch(QUERY, id, height)
 }
+const foundOtp = (code) => {
+   QUERY = `
+      SELECT
+         *
+      FROM
+         otp
+      WHERE
+         code = $1
+         and created_at >= NOW() - INTERVAL '5 minutes';
+   `;
+
+   return fetch(QUERY, code)
+}
+const foundUserChatId = (chat_id) => {
+   const QUERY = `
+      SELECT
+         *
+      FROM
+         users
+      WHERE
+         chat_id = $1;
+   `;
+
+   return fetch(QUERY, chat_id)
+}
 const deleteUser = (id) => {
    const QUERY = `
       DELETE FROM
@@ -254,5 +279,7 @@ module.exports = {
    editPremium,
    editWeight,
    editHeight,
+   foundOtp,
+   foundUserChatId,
    deleteUser
 }
