@@ -124,7 +124,7 @@ bot.on('contact', async (msg) => {
                chatId,
                botText.otpCodeTextLogin.replace(/%code%/g, otpCode),
                {
-                  parse_mode: "MarkdownV2"
+                  parse_mode: 'HTML'
                }
             ).then(async () => {
                await model.editStep(chatId, 'otp_code_login')
@@ -157,11 +157,10 @@ bot.on('message', async (msg) => {
             chatId,
             botText.otpCodeTextRegister.replace(/%code%/g, otpCode),
             {
-               parse_mode: "MarkdownV2"
+               parse_mode: 'HTML'
             }
          ).then(async () => {
             await model.editStep(chatId, 'otp_code_register')
-
          })
       }
    }

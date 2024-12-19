@@ -3,7 +3,7 @@
 	"startTextLogin": "Nimadir nimadir",
 	"sendContactBtn": "👤 Kontakt yuborish",
 	"askName": "Ismingizni yozing\nMasalan: Hilola",
-	"otpCodeTextLogin": "Login qilish uchun bir martalik kod:\n```\n%code%\n```",
+	"otpCodeTextLogin": "Login qilish uchun bir martalik kod:\n<pre>%code%</pre>",
    "dataNotFound": "Ma'lumotingiz topilda, Ro'yxatda o'ting.",
-	"otpCodeTextRegister": "Ro'yxatda o'tdingiz. Ilovaga kirish uchun bir martalik kod:\n```\n%code%\n```"
+	"otpCodeTextRegister": "Ro'yxatda o'tdingiz. Ilovaga kirish uchun bir martalik kod:\n<pre>%code%</pre>"
 }

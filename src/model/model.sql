@@ -26,7 +26,7 @@ CREATE TABLE users (
 
 CREATE TABLE otp (
    id bigserial PRIMARY KEY,
-   chat_id int,
+   chat_id bigint,
    code text,
    created_at timestamptz DEFAULT CURRENT_TIMESTAMP
 );
