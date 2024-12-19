@@ -960,43 +960,43 @@ router
    */
 
   /**
-   * @swagger
-   * /categories:
-   *    get:
-   *      summary: Returns a list of all categories with language or without language
-   *      tags: [Categories]
-   *      security:
-   *        - token: []
-   *      parameters:
-   *        - in: header
-   *          name: token
-   *          required: true
-   *          schema:
-   *            type: string
-   *          description: Authentication token
-   *        - in: query
-   *          name: lang
-   *          required: false
-   *          schema: 
-   *            type: string
-   *           description: if you need sort by language 
-   *      responses:
-   *        '200':
-   *          description: A list of categories article
-   *          content:
-   *            application/json:
-   *              schema:
-   *                type: array
-   *                items:
-   *                  $ref: '#/components/schemas/Categories'
-   *          headers:
-   *            token:
-   *              description: Token for authentication
-   *              schema:
-   *                type: string
-   *        '500':
-   *          description: Server error
-   */
+ * @swagger
+ * /categories:
+ *   get:
+ *     summary: Returns a list of all categories, optionally filtered by language
+ *     tags: [Categories]
+ *     security:
+ *       - token: []
+ *     parameters:
+ *       - in: header
+ *         name: token
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Authentication token
+ *       - in: query
+ *         name: lang
+ *         required: false
+ *         schema: 
+ *           type: string
+ *         description: Filter categories by language (optional)
+ *     responses:
+ *       '200':
+ *         description: A list of categories
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Categories'
+ *         headers:
+ *           token:
+ *             description: Authentication token
+ *             schema:
+ *               type: string
+ *       '500':
+ *         description: Internal server error
+ */
   .get('/categories', AUTH, categoiresArticle.GET)
 
   /**
