@@ -11,7 +11,7 @@ module.exports = {
          if (limit && page) {
             const usersList = await model.usersList(limit, page)
 
-            if (usersList?.length) {
+            if (usersList?.length > 0) {
                return res.status(200).json({
                   status: 200,
                   message: "Success",

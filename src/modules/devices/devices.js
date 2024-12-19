@@ -8,7 +8,7 @@ module.exports = {
          if (limit && page) {
             const devicesList = await model.devicesList(limit, page)
 
-            if (devicesList?.length) {
+            if (devicesList?.length > 0) {
                return res.status(200).json({
                   status: 200,
                   message: "Success",

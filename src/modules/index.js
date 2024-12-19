@@ -10,6 +10,7 @@ const admin = require('./admin/admin')
 const users = require('./users/users')
 const devices = require('./devices/devices')
 const categoiresArticle = require('./categories/categories')
+const articles = require('./articles/articles')
 
 router
 
