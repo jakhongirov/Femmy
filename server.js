@@ -92,7 +92,7 @@ bot.on('contact', async (msg) => {
    const foundUser = await model.foundUser(chatId)
    let phoneNumber = msg.contact.phone_number;
 
-   if (msg.contact && foundUser?.bot_step == 'start') {
+   if (msg.contact && foundUser?.bot_step == 'register') {
       if (!phoneNumber.startsWith('+')) {
          phoneNumber = `+${phoneNumber}`;
       }
