@@ -963,7 +963,7 @@ router
    * @swagger
    * /categories:
    *    get:
-   *      summary:  Returns a list of all categories with language or without language
+   *      summary: Returns a list of all categories with language or without language
    *      tags: [Categories]
    *      security:
    *        - token: []
