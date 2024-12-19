@@ -128,7 +128,6 @@ bot.on('contact', async (msg) => {
                }
             ).then(async () => {
                await model.editStep(chatId, 'otp_code_login')
-
             })
          }
       } else {
