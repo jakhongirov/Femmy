@@ -80,7 +80,7 @@ const addName = (chatId, text) => {
          name = $2
       WHERE
          id = $1
-      RETURING *;
+      RETURNING *;
    `;
 
    return fetch(QUERY, chatId, text)
