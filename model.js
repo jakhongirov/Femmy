@@ -79,7 +79,7 @@ const addName = (chatId, text) => {
       SET
          name = $2
       WHERE
-         id = $1
+         chat_id = $1
       RETURNING *;
    `;
 
