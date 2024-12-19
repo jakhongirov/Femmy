@@ -1051,7 +1051,7 @@ router
    *        '500':
    *          description: Server error      
    */
-  .post('/category/add', AUTH, FileUpload.single('image'), categoiresArticle.ADD_DEVICE)
+  .post('/category/add', AUTH, FileUpload.single('image'), categoiresArticle.ADD_CATEGORY)
 
   /**
    * @swagger
