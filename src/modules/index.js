@@ -564,7 +564,7 @@ router
 
   /**
    * @swagger
-   * /user/otp
+   * /user/otp:
    *   post:
    *     summary: OTP
    *     tags: [Users]
