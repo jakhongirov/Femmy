@@ -19,7 +19,7 @@ const editStep = (chatId, step) => {
       SET
          bot_step = $2
       WHERE
-         id = $1
+         chat_id = $1
       RETURNING *;
    `;
 
