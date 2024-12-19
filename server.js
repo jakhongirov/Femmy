@@ -142,8 +142,13 @@ bot.on('message', async (msg) => {
    const text = msg.text;
    const foundUser = await model.foundUser(chatId)
 
+   console.log(foundUser?.bot_step)
+   console.log(text)
+
    if (foundUser?.bot_step == 'ask_name' && text) {
       const addName = await model.addName(chatId, text)
+      console.log(addName)
+
 
       if (addName) {
          const otpCode = await generateOTP(6)
