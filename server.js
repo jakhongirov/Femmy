@@ -65,7 +65,7 @@ bot.onText(/\/start ?(.*)?/, async (msg, match) => {
          })
       }
    } else {
-      bot.sendMessage(chatId, botText.startTextLogin?.replace(/%%user%%/g, username), {
+      bot.sendMessage(chatId, botText.startTextLogin?.replace(/%user%/g, username), {
          reply_markup: {
             keyboard: [
                [
@@ -98,7 +98,7 @@ bot.on('contact', async (msg) => {
       }
 
       const addPhoneNumber = await model.addPhoneNumber(
-         foundUser?.id,
+         chatId,
          phoneNumber
       )
 
@@ -106,7 +106,6 @@ bot.on('contact', async (msg) => {
          bot.sendMessage(chatId, botText.askName)
             .then(async () => {
                await model.editStep(chatId, 'ask_name')
-
             })
       }
 
@@ -117,11 +116,50 @@ bot.on('contact', async (msg) => {
       }
 
       if (foundUser?.phone_number == phoneNumber) {
+         const otpCode = await generateOTP(6)
+         const addOtp = await model.addOtp(otpCode, chatId)
 
+         if (addOtp) {
+            bot.sendMessage(
+               chatId,
+               botText.otpCodeTextLogin.replace(/%code%/g, otpCode),
+               {
+                  parse_mode: "MarkdownV2"
+               }
+            ).then(async () => {
+               await model.editStep(chatId, 'otp_code_login')
+
+            })
+         }
       } else {
-         
+         bot.sendMessage(chatId, botText.dataNotFound)
       }
+   }
+})
 
+bot.on('message', async (msg) => {
+   const chatId = msg.chat.id;
+   const text = msg.text;
+   const foundUser = await model.foundUser(chatId)
+
+   if (foundUser?.bot_step == 'ask_name' && text) {
+      const addName = await model.addName(chatId, text)
+
+      if (addName) {
+         const otpCode = await generateOTP(6)
+         await model.addOtp(otpCode, chatId)
+
+         bot.sendMessage(
+            chatId,
+            botText.otpCodeTextRegister.replace(/%code%/g, otpCode),
+            {
+               parse_mode: "MarkdownV2"
+            }
+         ).then(async () => {
+            await model.editStep(chatId, 'otp_code_register')
+
+         })
+      }
    }
 })
 

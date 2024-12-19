@@ -26,7 +26,7 @@ CREATE TABLE users (
 
 CREATE TABLE otp (
    id bigserial PRIMARY KEY,
-   user_id int REFERENCES users(user_id) ON DELETE CASCADE,
+   chat_id int,
    code text,
    created_at timestamptz DEFAULT CURRENT_TIMESTAMP
 );
