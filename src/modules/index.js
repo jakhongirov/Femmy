@@ -9,6 +9,7 @@ const FileUpload = require('../middleware/multer')
 const admin = require('./admin/admin')
 const users = require('./users/users')
 const devices = require('./devices/devices')
+const categoiresArticle = require('./categories/categories')
 
 router
 
@@ -903,5 +904,249 @@ router
    *             description: Server error
    */
   .delete('/device/delete', AUTH, devices.DELETE_DEVICE)
+
+  // CATEGORIES ARTICLE API
+  /**
+   * @swagger
+   * components:
+   *    schemas:
+   *      Categories:
+   *        type: object
+   *        required:
+   *          - name
+   *          - lang,
+   *          - type
+   *        properties:
+   *          id: 
+   *            type: integer
+   *            description: auto generate
+   *          name:
+   *            type: string
+   *            description: category's name
+   *          lang: 
+   *            type: string
+   *            description: category's language
+   *          type:
+   *            type: string
+   *            description: category's type
+   *          image_url:
+   *            type: string
+   *            description: category's image link
+   *          image_name:
+   *            type: string
+   *            description: category's name
+   *          free:
+   *            type: boolean
+   *            description: category's free or for premium users
+   *          created_at:
+   *            type: string
+   *            description: user creation date
+   *      example:
+   *        id: 1,
+   *        name: Nimadir
+   *        lang: uz
+   *        type: bilmima
+   *        image_url: https://srvr.femmy.uz/public/images/nmadr.jpg
+   *        image_name: nmadr.jpg
+   *        free: false
+   *        created_at: 2024-01-23 10:52:41 +0000
+   */
+
+  /**
+   * @swagger
+   * tags:
+   *    name: Categories
+   *    description: Categories article api documentation
+   */
+
+  /**
+   * @swagger
+   * /categories:
+   *    get:
+   *      summary:  Returns a list of all categories with language or without language
+   *      tags: [Categories]
+   *      security:
+   *        - token: []
+   *      parameters:
+   *        - in: header
+   *          name: token
+   *          required: true
+   *          schema:
+   *            type: string
+   *          description: Authentication token
+   *        - in: query
+   *          name: lang
+   *          required: false
+   *          schema: 
+   *            type: string
+   *           description: if you need sort by language 
+   *      responses:
+   *        '200':
+   *          description: A list of categories article
+   *          content:
+   *            application/json:
+   *              schema:
+   *                type: array
+   *                items:
+   *                  $ref: '#/components/schemas/Categories'
+   *          headers:
+   *            token:
+   *              description: Token for authentication
+   *              schema:
+   *                type: string
+   *        '500':
+   *          description: Server error
+   */
+  .get('/categories', AUTH, categoiresArticle.GET)
+
+  /**
+   * @swagger
+   * /category/add:
+   *    post:
+   *      summary: Create a new category
+   *      tags: [Categories]
+   *      security:
+   *        - token: []
+   *      parameters:
+   *        - in: header
+   *          name: token
+   *          required: true,
+   *          schema:
+   *            type: string
+   *          description: Authentication token
+   *      requestBody:
+   *          required: true
+   *          content:
+   *            multipart/form-data:
+   *              schema:
+   *                type: object
+   *                properties:
+   *                  image:
+   *                    type: string
+   *                    format: binary
+   *                    description: category's image
+   *                  name:
+   *                    type: string
+   *                    description: category's name
+   *                    example: nimadir
+   *                  lang:
+   *                    type: string
+   *                    description: category's language
+   *                    example: uz
+   *                  type:
+   *                    type: string
+   *                    description: category's type
+   *                    example: bilmima
+   *                  free:
+   *                    type: boolean
+   *                    description: category's free or for premium users
+   *                    example: true
+   *      responses:
+   *        '201':
+   *          description: Successfully created a new category article
+   *          content:
+   *            application/json:
+   *              schema:
+   *                $ref: '#/components/schemas/Categories'
+   *        '500':
+   *          description: Server error      
+   */
+  .post('/category/add', AUTH, FileUpload.single('image'), categoiresArticle.ADD_DEVICE)
+
+  /**
+   * @swagger
+   * /category/edit:
+   *    put:
+   *      summary: Edit a category
+   *      tags: [Categories]
+   *      security:
+   *        - token: []
+   *      parameters:
+   *        - in: header
+   *          name: token
+   *          required: true
+   *          schema: 
+   *            type: string
+   *          description: Authentication token
+   *      requestBody:
+   *          required: true
+   *          content:
+   *            multipart/form-data:
+   *              schema:
+   *                type: object
+   *                properties:
+   *                  id:
+   *                    type: integer
+   *                    description: category's id
+   *                    example: 1
+   *                  image:
+   *                    type: string
+   *                    format: binary
+   *                    description: category's image
+   *                  name:
+   *                    type: string
+   *                    description: category's name
+   *                    example: nimadir
+   *                  lang:
+   *                    type: string
+   *                    description: category's language
+   *                    example: uz
+   *                  type:
+   *                    type: string
+   *                    description: category's type
+   *                    example: bilmima
+   *                  free:
+   *                    type: boolean
+   *                    description: category's free or for premium users
+   *                    example: true
+   *      responses:
+   *        '200':
+   *          description: Successfully edit a category article
+   *          content:
+   *            application/json:
+   *              schema:
+   *                $ref: '#/components/schemas/Categories'
+   *        '500':
+   *          description: Server error      
+   */
+  .put('/category/edit', AUTH, FileUpload.single('image'), categoiresArticle.EDIT_CATEGORY)
+
+  /**
+  * @swagger
+  * /category/delete:
+  *    delete:
+  *       summary: Delete category from database
+  *       tags: [Categories]
+  *       parameters:
+  *          - in: header
+  *            name: token
+  *            required: true
+  *            schema:
+  *               type: string
+  *            description: Authentication token
+  *       security:
+  *          - token: []
+  *       requestBody:
+  *          required: true
+  *          content:
+  *             application/json:
+  *                schema:
+  *                   type: object
+  *                   properties:
+  *                      id:
+  *                         type: integer
+  *                         description: Category's id
+  *                         example: 1
+  *       responses:
+  *          '200':
+  *             description: Category deleted
+  *             content: 
+  *                application/json:
+  *                   schema:
+  *                      $ref: '#/components/schemas/Categories'
+  *          '500':
+  *             description: Server error
+  */
+  .delete('/category/delete', AUTH, categoiresArticle.DELETE_CATEGORY)
 
 module.exports = router
