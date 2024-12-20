@@ -915,7 +915,7 @@ router
    *        type: object
    *        required:
    *          - name
-   *          - lang,
+   *          - lang
    *          - type
    *        properties:
    *          id: 
@@ -941,7 +941,7 @@ router
    *            description: category's free or for premium users
    *          created_at:
    *            type: string
-   *            description: user creation date
+   *            description: category creation date
    *      example:
    *        id: 1,
    *        name: Nimadir
@@ -1011,7 +1011,7 @@ router
    *      parameters:
    *        - in: header
    *          name: token
-   *          required: true,
+   *          required: true
    *          schema:
    *            type: string
    *          description: Authentication token
@@ -1149,5 +1149,187 @@ router
   *             description: Server error
   */
   .delete('/category/delete', AUTH, categoiresArticle.DELETE_CATEGORY)
+
+  // ARTICLE API
+  /**
+   * @swagger
+   * components:
+   *    schemas:
+   *      Articles:
+   *        type: object
+   *        required:
+   *          - category_id
+   *          - title
+   *          - description
+   *        properties:
+   *          id:
+   *            type: integer
+   *            description: auto generate
+   *          category_id:
+   *            type: integer
+   *            description: category's id
+   *          title:
+   *            type: string
+   *            description: article's title
+   *          description:
+   *            type: string
+   *            description: article text
+   *          image_url:
+   *            type: string
+   *            description: article image url
+   *          image_name:
+   *            type: string
+   *            description: article image name
+   *          source:
+   *            type: string
+   *            description: article source
+   *          video_url:
+   *            type: string
+   *            description: article video url
+   *          featured:
+   *            type: boolean
+   *            decription: article featured
+   *          free:
+   *            type: boolean
+   *            decription: article for premium users
+   *          created_at:
+   *            type: string
+   *            decription: article created time
+   *      example:
+   *        id: 1
+   *        category_id: 1
+   *        title: Nimadir nimadir
+   *        description: lorem2000
+   *        image_url: https://srvr.femmy.uz/public/images/nmadr.jpg
+   *        image_name: nmadr.jpg
+   *        source: bla bla bla bla
+   *        video_url: https://youtube.com
+   *        featured: true
+   *        free: false
+   *        created_at: 2024-01-23 10:52:41 +0000
+   */
+
+  /**
+   * @swagger
+   * tags:
+   *    name: Articles
+   *    description: Articles article api documentation
+   */
+
+  /**
+   * @swagger
+   *  /articles/list:
+   *    get:
+   *      summary: Returns a list of all articles, optionally filtered by categoris
+   *      tags: [Articles]
+   *      security: 
+   *        - token: []
+   *      parameters:
+   *        - in: header
+   *          name: token
+   *          required: true
+   *          schema:
+   *            type: string
+   *          description: Authentication token
+   *        - in: query
+   *          name: category_id
+   *          required: false
+   *          schema: 
+   *            type: integer
+   *          description: Filter articles by category id (optional)
+   *        - in: query
+   *          name: limit
+   *          schema:
+   *            type: integer
+   *          description: Limit for the number of article in the list
+   *        - in: query
+   *          name: page
+   *          schema:
+   *            type: integer
+   *          description: Page number for pagination
+   *    responses:
+   *      '200':
+   *          description: A list of articles
+   *          content:
+   *            application/json:
+   *              schema:
+   *                type: array
+   *                items:
+   *                  $ref: '#/components/schemas/Articles'
+   *      header:
+   *        token:
+   *          description: Token for authentication
+   *          schema:
+   *            type: string
+   *      '500':
+   *        description: Server error    
+   */
+  .get('/articles/list', AUTH, articles.GET)
+
+  /**
+ * @swagger
+ * /article/add:
+ *   post:
+ *     summary: Create a new article
+ *     tags: [Articles]
+ *     security: 
+ *       - token: []
+ *     parameters:
+ *       - in: header
+ *         name: token
+ *         required: true
+ *         schema: 
+ *           type: string
+ *         description: Authentication token
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               image:
+ *                 type: string
+ *                 format: binary
+ *                 description: Article's image
+ *               category_id:
+ *                 type: integer
+ *                 description: Category's ID
+ *                 example: 1
+ *               title: 
+ *                 type: string
+ *                 description: Article's title
+ *                 example: Nimadir
+ *               description: 
+ *                 type: string
+ *                 description: Article text
+ *                 example: Lorem ipsum dolor sit amet
+ *               source:
+ *                 type: string
+ *                 description: Article source
+ *                 example: nimadir bla bla
+ *               video_url:
+ *                 type: string
+ *                 description: Article video URL
+ *                 example: https://youtube.com
+ *               featured:
+ *                 type: boolean
+ *                 description: Whether the article is featured
+ *                 example: true
+ *               free: 
+ *                 type: boolean  
+ *                 description: Whether the article is free for premium users
+ *                 example: false
+ *     responses:
+ *       '201':
+ *         description: Successfully created a new article
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Articles'
+ *       '500':
+ *         description: Server error
+ */
+  .post('/article/add', AUTH, FileUpload.single('image'), articles.ADD_ARTICLE)
 
 module.exports = router
