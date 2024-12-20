@@ -1267,6 +1267,44 @@ router
   .get('/articles/list', AUTH, articles.GET)
 
   /**
+   * @swagger
+   * /article/{id}:
+   *    get:
+   *       summary: Get article data by user id
+   *       tags: [Articles]
+   *       security:
+   *          - token: []
+   *       parameters:
+   *          - in: header
+   *            name: token
+   *            required: true
+   *            schema:
+   *               type: string
+   *            description: Authentication token
+   *          - in: path
+   *            name: id
+   *            required: true
+   *            schema:
+   *               type: integer
+   *            description: Article's ID
+   *       responses:
+   *          '200':
+   *             description: Article's data retrieved successfully
+   *             content:
+   *                application/json:
+   *                   schema:
+   *                      $ref: '#/components/schemas/Articles'
+   *             headers:
+   *                token:
+   *                   description: Token for authentication
+   *                   schema:
+   *                      type: string
+   *          '500':
+   *             description: Server error
+   */
+  .get('/article/:id', AUTH, articles.GET_ID)
+
+  /**
  * @swagger
  * /article/add:
  *   post:
@@ -1401,5 +1439,43 @@ router
   *         description: Server error
   */
   .put('/article/edit', AUTH, FileUpload.single('image'), articles.EDIT_ARTICLE)
+
+  /**
+ * @swagger
+ * /article/delete:
+ *    delete:
+ *       summary: Delete article from database
+ *       tags: [Articles]
+ *       parameters:
+ *          - in: header
+ *            name: token
+ *            required: true
+ *            schema:
+ *               type: string
+ *            description: Authentication token
+ *       security:
+ *          - token: []
+ *       requestBody:
+ *          required: true
+ *          content:
+ *             application/json:
+ *                schema:
+ *                   type: object
+ *                   properties:
+ *                      id:
+ *                         type: integer
+ *                         description: Article's id
+ *                         example: 1
+ *       responses:
+ *          '200':
+ *             description: Article deleted
+ *             content: 
+ *                application/json:
+ *                   schema:
+ *                      $ref: '#/components/schemas/Articles'
+ *          '500':
+ *             description: Server error
+ */
+  .delete('/article/delete', AUTH, articles.DELETE_ARTICLE)
 
 module.exports = router
