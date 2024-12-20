@@ -1152,62 +1152,62 @@ router
 
   // ARTICLE API
   /**
-  * @swagger
-  * components:
-  *   schemas:
-  *     Articles:
-  *       type: object
-  *       required:
-  *         - category_id
-  *         - title
-  *         - description
-  *       properties:
-  *         id:
-  *           type: integer
-  *           description: Auto-generated unique identifier
-  *           example: 1
-  *         category_id:
-  *           type: integer
-  *           description: Category's ID
-  *           example: 1
-  *         title:
-  *           type: string
-  *           description: Article's title
-  *           example: Nimadir nimadir
-  *         description:
-  *           type: string
-  *           description: Article text
-  *           example: lorem2000
-  *         image_url:
-  *           type: string
-  *           description: Article image URL
-  *           example: https://srvr.femmy.uz/public/images/nmadr.jpg
-  *         image_name:
-  *           type: string
-  *           description: Article image name
-  *           example: nmadr.jpg
-  *         source:
-  *           type: string
-  *           description: Article source
-  *           example: bla bla bla bla
-  *         video_url:
-  *           type: string
-  *           description: Article video URL
-  *           example: https://youtube.com
-  *         featured:
-  *           type: boolean
-  *           description: Whether the article is featured
-  *           example: true
-  *         free:
-  *           type: boolean
-  *           description: Whether the article is free for premium users
-  *           example: false
-  *         created_at:
-  *           type: string
-  *           format: date-time
-  *           description: Article creation time
-  *           example: 2024-01-23T10:52:41Z
-  */
+   * @swagger
+   * components:
+   *    schemas:
+   *      Articles:
+   *        type: object
+   *        required:
+   *          - category_id
+   *          - title
+   *          - description
+   *        properties:
+   *          id:
+   *            type: integer
+   *            description: auto generate
+   *          category_id:
+   *            type: integer
+   *            description: category's id
+   *          title:
+   *            type: string
+   *            description: article's title
+   *          description:
+   *            type: string
+   *            description: article text
+   *          image_url:
+   *            type: string
+   *            description: article image url
+   *          image_name:
+   *            type: string
+   *            description: article image name
+   *          source:
+   *            type: string
+   *            description: article source
+   *          video_url:
+   *            type: string
+   *            description: article video url
+   *          featured:
+   *            type: boolean
+   *            decription: article featured
+   *          free:
+   *            type: boolean
+   *            decription: article for premium users
+   *          created_at:
+   *            type: string
+   *            decription: article created time
+   *        example:
+   *          id: 1
+   *          category_id: 1
+   *          title: Nimadir nimadir
+   *          description: lorem2000
+   *          image_url: https://srvr.femmy.uz/public/images/nmadr.jpg
+   *          image_name: nmadr.jpg
+   *          source: bla bla bla bla
+   *          video_url: https://youtube.com
+   *          featured: true
+   *          free: false
+   *          created_at: 2024-01-23 10:52:41 +0000
+   */
 
   /**
    * @swagger
