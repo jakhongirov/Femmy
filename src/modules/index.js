@@ -942,15 +942,15 @@ router
    *          created_at:
    *            type: string
    *            description: category creation date
-   *      example:
-   *        id: 1,
-   *        name: Nimadir
-   *        lang: uz
-   *        type: bilmima
-   *        image_url: https://srvr.femmy.uz/public/images/nmadr.jpg
-   *        image_name: nmadr.jpg
-   *        free: false
-   *        created_at: 2024-01-23 10:52:41 +0000
+   *        example:
+   *          id: 1,
+   *          name: Nimadir
+   *          lang: uz
+   *          type: bilmima
+   *          image_url: https://srvr.femmy.uz/public/images/nmadr.jpg
+   *          image_name: nmadr.jpg
+   *          free: false
+   *          created_at: 2024-01-23 10:52:41 +0000
    */
 
   /**
