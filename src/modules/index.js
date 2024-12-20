@@ -1332,4 +1332,74 @@ router
  */
   .post('/article/add', AUTH, FileUpload.single('image'), articles.ADD_ARTICLE)
 
+  /**
+  * @swagger
+  * /article/edit:
+  *   put:
+  *     summary: Edit an article
+  *     tags: [Articles]
+  *     security: 
+  *       - token: []
+  *     parameters:
+  *       - in: header
+  *         name: token
+  *         required: true
+  *         schema: 
+  *           type: string
+  *         description: Authentication token
+  *     requestBody:
+  *       required: true
+  *       content:
+  *         multipart/form-data:
+  *           schema:
+  *             type: object
+  *             properties:
+  *               id:
+  *                 type: integer
+  *                 description: article's id
+  *                 example: 1
+  *               image:
+  *                 type: string
+  *                 format: binary
+  *                 description: Article's image
+  *               category_id:
+  *                 type: integer
+  *                 description: Category's ID
+  *                 example: 1
+  *               title: 
+  *                 type: string
+  *                 description: Article's title
+  *                 example: Nimadir
+  *               description: 
+  *                 type: string
+  *                 description: Article text
+  *                 example: Lorem ipsum dolor sit amet
+  *               source:
+  *                 type: string
+  *                 description: Article source
+  *                 example: nimadir bla bla
+  *               video_url:
+  *                 type: string
+  *                 description: Article video URL
+  *                 example: https://youtube.com
+  *               featured:
+  *                 type: boolean
+  *                 description: Whether the article is featured
+  *                 example: true
+  *               free: 
+  *                 type: boolean  
+  *                 description: Whether the article is free for premium users
+  *                 example: false
+  *     responses:
+  *       '200':
+  *         description: Successfully edited an article
+  *         content:
+  *           application/json:
+  *             schema:
+  *               $ref: '#/components/schemas/Articles'
+  *       '500':
+  *         description: Server error
+  */
+  .put('/article/edit', AUTH, FileUpload.single('image'), articles.EDIT_ARTICLE)
+
 module.exports = router
