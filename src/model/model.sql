@@ -33,7 +33,7 @@ CREATE TABLE otp (
 
 CREATE TABLE devices (
    id bigserial PRIMARY KEY,
-   user_id int REFERENCES users(user_id) ON DELETE CASCADE,
+   user_id int REFERENCES users(id) ON DELETE CASCADE,
    phone_brand text,
    phone_lang text,
    app_lang text,
