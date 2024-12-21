@@ -1,8 +1,8 @@
 {
-	"startTextNewUser": "Assalomu alaykum %user%!",
-	"startTextLogin": "Nimadir nimadir",
+	"startTextNewUser": "Assalomu alaykum %user%! Femmi botiga hush kelibsiz! Ro'yxatdan o'tish uchun iltimos, pastdagi tugma orqali kontaktingizni yuboring..",
+	"startTextLogin": "Femmi botiga hush kelibsiz! Kirish uchun iltimos, pastdagi tugma orqali kontaktingizni yuboring..",
 	"sendContactBtn": "👤 Kontakt yuborish",
-	"askName": "Ismingizni yozing\nMasalan: Hilola",
+	"askName": "Iltimos, Ismingizni yozing:",
 	"otpCodeTextLogin": "Login qilish uchun bir martalik kod:\n<pre>%code%</pre>",
    "dataNotFound": "Ma'lumotingiz topilda, Ro'yxatda o'ting.",
 	"otpCodeTextRegister": "Ro'yxatda o'tdingiz. Ilovaga kirish uchun bir martalik kod:\n<pre>%code%</pre>"
