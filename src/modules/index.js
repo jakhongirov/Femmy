@@ -1239,17 +1239,19 @@ router
    *          description: Filter articles by category id (optional)
    *        - in: query
    *          name: limit
+   *          required: true
    *          schema:
    *            type: integer
    *          description: Limit for the number of article in the list
    *        - in: query
    *          name: page
+   *          required: true
    *          schema:
    *            type: integer
    *          description: Page number for pagination
    *    responses:
    *      '200':
-   *          description: A list of articles
+   *        description: A list of articles
    *          content:
    *            application/json:
    *              schema:
