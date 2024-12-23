@@ -360,7 +360,7 @@ router
 
   /**
    * @swagger
-   * /user/{id}:
+   * /user/{user_id}:
    *   get:
    *     summary: Get user data by ID
    *     tags: [Users]
