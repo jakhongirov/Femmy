@@ -11,7 +11,7 @@ const categories = (lang) => {
          id DESC;
    `;
 
-   return fetchALL(QUERY, lang || null)
+   return fetchALL(QUERY, lang ? lang : "")
 }
 const addCategory = (
    name,
