@@ -6,12 +6,12 @@ const categories = (lang) => {
          *
       FROM
          categories_article
-         ${lang ? `WHERE lang = $1` : ""}
+         ${lang ? `WHERE lang = ${lang}` : ""}
       ORDER BY
          id DESC;
    `;
 
-   return fetchALL(QUERY, lang ? lang : "")
+   return fetchALL(QUERY)
 }
 const addCategory = (
    name,
