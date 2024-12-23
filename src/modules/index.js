@@ -1220,7 +1220,7 @@ router
    * @swagger
    *  /articles/list:
    *    get:
-   *      summary: Returns a list of all articles, optionally filtered by categoris
+   *      summary: Returns a list of all articles, optionally filtered by categories
    *      tags: [Articles]
    *      security: 
    *        - token: []
@@ -1236,35 +1236,30 @@ router
    *          required: false
    *          schema: 
    *            type: integer
-   *          description: Filter articles by category id (optional)
+   *          description: Filter articles by category ID (optional)
    *        - in: query
    *          name: limit
    *          required: true
    *          schema:
    *            type: integer
-   *          description: Limit for the number of article in the list
+   *          description: Limit for the number of articles in the list
    *        - in: query
    *          name: page
    *          required: true
    *          schema:
    *            type: integer
    *          description: Page number for pagination
-   *    responses:
-   *      '200':
-   *        description: A list of articles
+   *      responses:
+   *        '200':
+   *          description: A list of articles
    *          content:
    *            application/json:
    *              schema:
    *                type: array
    *                items:
    *                  $ref: '#/components/schemas/Articles'
-   *      header:
-   *        token:
-   *          description: Token for authentication
-   *          schema:
-   *            type: string
-   *      '500':
-   *        description: Server error    
+   *        '500':
+   *          description: Server error
    */
   .get('/articles/list', AUTH, articles.GET)
 
