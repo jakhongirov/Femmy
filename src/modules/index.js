@@ -394,7 +394,7 @@ router
    *       '500':
    *         description: Server error
    */
-  .get('/user/:id', AUTH, users.GET_ID)
+  .get('/user/:user_id', AUTH, users.GET_ID)
 
   /**
     * @swagger
