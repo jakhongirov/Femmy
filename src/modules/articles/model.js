@@ -9,8 +9,8 @@ const articlesList = (limit, page, category_id) => {
          ${category_id ? `WHERE category_id = ${category_id}` : ""}
       ORDER BY
          id DESC
-      LIMIT $2
-      OFFSET $3;
+      LIMIT $1
+      OFFSET $2;
    `;
 
    return fetchALL(
