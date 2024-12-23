@@ -6,7 +6,7 @@ const articlesList = (limit, page, category_id) => {
          *
       FROM
          articles
-         ${category_id ? `WHERE category_id = $1` : ""}
+         ${category_id ? `WHERE category_id = ${category_id}` : ""}
       ORDER BY
          id DESC
       LIMIT $2
