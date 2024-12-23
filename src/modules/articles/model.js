@@ -15,7 +15,6 @@ const articlesList = (limit, page, category_id) => {
 
    return fetchALL(
       QUERY,
-      category_id || null,
       limit,
       Number((page - 1) * limit)
    )
