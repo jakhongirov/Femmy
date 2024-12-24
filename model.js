@@ -33,10 +33,12 @@ const createUser = (
       INSERT INTO
          users (
             chat_id,
-            bot_step
+            bot_step,
+            telegram
          ) VALUES (
             $1,
-            $2 
+            $2,
+            true
          ) RETURNING *;
    `;
 
