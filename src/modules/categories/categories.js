@@ -31,6 +31,33 @@ module.exports = {
       }
    },
 
+   GET_LIST: async (req, res) => {
+      try {
+         const { lang } = req.query
+         const categoriesArticle = await model.categoriesArticle(lang)
+
+         if (categoriesArticle?.length > 0) {
+            return res.status(200).json({
+               status: 200,
+               message: "Success",
+               data: categoriesArticle
+            })
+         } else {
+            return res.status(404).json({
+               status: 404,
+               message: "Not found"
+            })
+         }
+
+      } catch (error) {
+         console.log(error);
+         return res.status(500).json({
+            status: 500,
+            message: "Interval Server Error"
+         })
+      }
+   },
+
    ADD_CATEGORY: async (req, res) => {
       try {
          const uploadPhoto = req.file;

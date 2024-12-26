@@ -13,6 +13,65 @@ const categories = (lang) => {
 
    return fetchALL(QUERY)
 }
+const categoriesArticle = (lang) => {
+   const QUERY = `
+      WITH limited_articles AS (
+         SELECT 
+            a.id,
+            a.category_id,
+            a.title,
+            a.description,
+            a.image_url,
+            a.image_name,
+            a.source,
+            a.video_url,
+            a.featured,
+            a.free,
+            a.created_at,
+            ROW_NUMBER() OVER (PARTITION BY a.category_id ORDER BY a.created_at DESC) AS row_num
+         FROM 
+            articles a
+      )
+      SELECT 
+         ca.id AS id,
+         ca.name,
+         ca.lang,
+         ca.type,
+         ca.image_url,
+         ca.image_name,
+         ca.free,
+         ca.created_at,
+         COALESCE(
+            JSON_AGG(
+                  JSON_BUILD_OBJECT(
+                     'id', la.id,
+                     'category_id', la.category_id,
+                     'title', la.title,
+                     'description', la.description,
+                     'image_url', la.image_url,
+                     'image_name', la.image_name,
+                     'source', la.source,
+                     'video_url', la.video_url,
+                     'featured', la.featured,
+                     'free', la.free,
+                     'created_at', la.created_at
+                  )
+            ) FILTER (WHERE la.id IS NOT NULL), '[]'
+         ) AS articles
+      FROM 
+         categories_article ca
+      LEFT JOIN 
+         limited_articles la
+      ON 
+         ca.id = la.category_id AND la.row_num <= 10
+      WHERE
+         ca.lang = $1
+      GROUP BY 
+         ca.id;
+   `;
+
+   return fetchALL(QUERY, lang)
+}
 const addCategory = (
    name,
    lang,
@@ -111,6 +170,7 @@ const deleteCategory = (id) => {
 
 module.exports = {
    categories,
+   categoriesArticle,
    addCategory,
    foundCategory,
    editCategory,
