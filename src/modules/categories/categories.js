@@ -58,6 +58,33 @@ module.exports = {
       }
    },
 
+   GET_ID: async (req, res) => {
+      try {
+         const { id } = req.params
+         const foundCategoryWithArticle = await model.foundCategoryWithArticle(id)
+
+         if (foundCategoryWithArticle) {
+            return res.status(200).json({
+               status: 200,
+               message: "Success",
+               data: foundCategoryWithArticle
+            })
+         } else {
+            return res.status(400).json({
+               status: 400,
+               message: "Bad request"
+            })
+         }
+
+      } catch (error) {
+         console.log(error);
+         return res.status(500).json({
+            status: 500,
+            message: "Interval Server Error"
+         })
+      }
+   },
+
    ADD_CATEGORY: async (req, res) => {
       try {
          const uploadPhoto = req.file;

@@ -1041,6 +1041,46 @@ router
   .get('/categories/article', AUTH, categoiresArticle.GET_LIST)
 
   /**
+ * @swagger
+ * /category/{id}:
+ *   get:
+ *     summary: Returns category with article
+ *     tags: [Categories]
+ *     security:
+ *       - token: []
+ *     parameters:
+ *       - in: header
+ *         name: token
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Authentication token
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema: 
+ *           type: integer
+ *         description: Filter categories by id
+ *     responses:
+ *       '200':
+ *         description: A categor with article
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Categories'
+ *         headers:
+ *           token:
+ *             description: Authentication token
+ *             schema:
+ *               type: string
+ *       '500':
+ *         description: Internal server error
+ */
+  .get('/category/:id', AUTH, categoiresArticle.GET_ID)
+
+  /**
    * @swagger
    * /category/add:
    *    post:
