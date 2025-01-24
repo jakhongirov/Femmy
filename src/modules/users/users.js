@@ -190,110 +190,57 @@ module.exports = {
          let userData = {}
 
          if (name) {
-            const editName = await model.editName(id, name)
-            if (editName) {
-               userData = editName
-            } else {
-               userData = null
-            }
+            await model.editName(id, name)
          }
 
          if (age) {
-            const editAge = await model.editAge(id, age)
-            if (editAge) {
-               userData = editAge
-            } else {
-               userData = null
-            }
+            await model.editAge(id, age)
          }
 
          if (model_id) {
-            const editModel = await model.editModel(id, model_id)
-            if (editModel) {
-               userData = editModel
-            } else {
-               userData = null
-            }
+            await model.editModel(id, model_id)
          }
 
          if (phone_number) {
-            const editPhoneNumber = await model.editPhoneNumber(id, phone_number.replace(/^(\+)?/, '+'))
-            if (editPhoneNumber) {
-               userData = editPhoneNumber
-            } else {
-               userData = null
-            }
+            model.editPhoneNumber(id, phone_number.replace(/^(\+)?/, '+'))
          }
 
          if (password) {
             const pass_hash = await bcryptjs.hash(password, 10);
-            const editPassword = await model.editPassword(id, pass_hash)
-            if (editPassword) {
-               userData = editPassword
-            } else {
-               userData = null
-            }
+            await model.editPassword(id, pass_hash)
          }
 
          if (avarage_period) {
-            const editAvaragePeriod = await model.editAvaragePeriod(id, avarage_period)
-            if (editAvaragePeriod) {
-               userData = editAvaragePeriod
-            } else {
-               userData = null
-            }
+            await model.editAvaragePeriod(id, avarage_period)
          }
 
          if (cycle_duration) {
-            const editCycleDuration = await model.editCycleDuration(id, cycle_duration)
-            if (editCycleDuration) {
-               userData = editCycleDuration
-            } else {
-               userData = null
-            }
+            await model.editCycleDuration(id, cycle_duration)
          }
 
          if (expired_date) {
-            const editExpiredDate = await model.editExpiredDate(id, expired_date)
-            if (editExpiredDate) {
-               userData = editExpiredDate
-            } else {
-               userData = null
-            }
+            await model.editExpiredDate(id, expired_date)
          }
 
          if (premium) {
-            const editPremium = await model.editPremium(id, premium)
-            if (editPremium) {
-               userData = editPremium
-            } else {
-               userData = null
-            }
+            await model.editPremium(id, premium)
          }
 
          if (weight) {
-            const editWeight = await model.editWeight(id, weight)
-            if (editWeight) {
-               userData = editWeight
-            } else {
-               userData = null
-            }
+            await model.editWeight(id, weight)
          }
 
          if (height) {
-            const editHeight = await model.editHeight(id, height)
-            if (editHeight) {
-               userData = editHeight
-            } else {
-               userData = null
-            }
+            await model.editHeight(id, height)
          }
 
-         if (userData) {
+         const foundUser = await model.foundUser(id)
+
+         if (foundUser) {
             return res.status(200).json({
                status: 200,
                message: "Success",
-               data: userData
+               data: foundUser
             })
          } else {
             return res.status(400).json({
