@@ -192,36 +192,36 @@ module.exports = {
          if (name) {
             const editName = await model.editName(id, name)
             if (editName) {
-               return userData = editName
+               userData = editName
             } else {
-               return userData = null
+               userData = null
             }
          }
 
          if (age) {
             const editAge = await model.editAge(id, age)
             if (editAge) {
-               return userData = editAge
+               userData = editAge
             } else {
-               return userData = null
+               userData = null
             }
          }
 
          if (model_id) {
             const editModel = await model.editModel(id, model_id)
             if (editModel) {
-               return userData = editModel
+               userData = editModel
             } else {
-               return userData = null
+               userData = null
             }
          }
 
          if (phone_number) {
             const editPhoneNumber = await model.editPhoneNumber(id, phone_number.replace(/^(\+)?/, '+'))
             if (editPhoneNumber) {
-               return userData = editPhoneNumber
+               userData = editPhoneNumber
             } else {
-               return userData = null
+               userData = null
             }
          }
 
@@ -229,63 +229,63 @@ module.exports = {
             const pass_hash = await bcryptjs.hash(password, 10);
             const editPassword = await model.editPassword(id, pass_hash)
             if (editPassword) {
-               return userData = editPassword
+               userData = editPassword
             } else {
-               return userData = null
+               userData = null
             }
          }
 
          if (avarage_period) {
             const editAvaragePeriod = await model.editAvaragePeriod(id, avarage_period)
             if (editAvaragePeriod) {
-               return userData = editAvaragePeriod
+               userData = editAvaragePeriod
             } else {
-               return userData = null
+               userData = null
             }
          }
 
          if (cycle_duration) {
             const editCycleDuration = await model.editCycleDuration(id, cycle_duration)
             if (editCycleDuration) {
-               return userData = editCycleDuration
+               userData = editCycleDuration
             } else {
-               return userData = null
+               userData = null
             }
          }
 
          if (expired_date) {
             const editExpiredDate = await model.editExpiredDate(id, expired_date)
             if (editExpiredDate) {
-               return userData = editExpiredDate
+               userData = editExpiredDate
             } else {
-               return userData = null
+               userData = null
             }
          }
 
          if (premium) {
             const editPremium = await model.editPremium(id, premium)
             if (editPremium) {
-               return userData = editPremium
+               userData = editPremium
             } else {
-               return userData = null
+               userData = null
             }
          }
 
          if (weight) {
             const editWeight = await model.editWeight(id, weight)
             if (editWeight) {
-               return userData = editWeight
+               userData = editWeight
             } else {
-               return userData = null
+               userData = null
             }
          }
 
          if (height) {
             const editHeight = await model.editHeight(id, height)
             if (editHeight) {
-               return userData = editHeight
+               userData = editHeight
             } else {
-               return userData = null
+               userData = null
             }
          }
 

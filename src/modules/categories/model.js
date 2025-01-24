@@ -6,7 +6,7 @@ const categories = (lang) => {
          *
       FROM
          categories_article
-         ${lang ? `WHERE lang = ${lang}` : ""}
+         ${lang ? `WHERE lang = '${lang}'` : ""}
       ORDER BY
          id DESC;
    `;
