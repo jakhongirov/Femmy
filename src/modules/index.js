@@ -374,7 +374,7 @@ router
    *           type: string
    *         description: Authentication token
    *       - in: path
-   *         name: id
+   *         name: user_id
    *         required: true
    *         schema:
    *           type: integer
