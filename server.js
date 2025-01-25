@@ -45,6 +45,8 @@ bot.onText(/\/start ?(.*)?/, async (msg, match) => {
    const username = msg.from.first_name;
    const foundUser = await model.foundUser(chatId)
 
+   console.log(chatId)
+
    if (foundUser) {
       if (param == 'login') {
          bot.sendMessage(chatId, botText.startTextLogin?.replace(/%%user%%/g, foundUser?.name), {
