@@ -4,6 +4,6 @@
 	"sendContactBtn": "👤 Kontakt yuborish",
 	"askName": "Iltimos, Ismingizni yozing:",
 	"otpCodeTextLogin": "Login qilish uchun bir martalik kod:\n<pre>%code%</pre>",
-   "dataNotFound": "Ma'lumotingiz topilda, Ro'yxatda o'ting.",
+   "dataNotFound": "Ma'lumotingiz topilmadi, Ro'yxatda o'ting.",
 	"otpCodeTextRegister": "Ro'yxatda o'tdingiz. Ilovaga kirish uchun bir martalik kod:\n<pre>%code%</pre>"
 }
