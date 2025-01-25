@@ -262,7 +262,7 @@ router
    *         height:
    *           type: integer
    *           description: user's height - 1.87 m
-   *         model_id:
+   *         mode_id:
    *           type: string
    *           description: user's model id
    *         expired_date:
@@ -277,6 +277,15 @@ router
    *         cycle_duration:
    *           type: string
    *           description: user's cycle duration
+   *         last_period_date:
+   *           type: string
+   *           description: user's last period date
+   *         fetal_age:
+   *           type: string
+   *           description: user's last fetal age
+   *         baby_born_date:
+   *           type: string
+   *           description: user's last baby born date
    *         chat_id:
    *           type: integer
    *           description: user's telegram chat_id
@@ -296,11 +305,14 @@ router
    *         password: 2jk3jnnj3nj43nb4j3bjeb3b23jijjerjf#$%#$#$
    *         weight: 63.5
    *         height: 1.87
-   *         model_id: 1
+   *         mode_id: 1
    *         expired_date: 12.12.2025
    *         premium: true
    *         avarage_period: 12.12.2024
    *         cycle_duration: 12.12.2024
+   *         last_period_date: 12.12.2024
+   *         fetal_age: 12
+   *         baby_born_date: 12.12.2024
    *         chat_id: null
    *         bot_step: null
    *         telegram: false
@@ -417,7 +429,7 @@ router
     *                 type: integer
     *                 description: User's age
     *                 example: 19
-    *               model_id:
+    *               mode_id:
     *                 type: string
     *                 description: User's model ID
     *                 example: 23
@@ -437,6 +449,18 @@ router
     *                 type: string
     *                 description: User's cycle duration
     *                 example: 28
+    *               last_period_date:
+    *                 type: string
+    *                 description: User's last period date
+    *                 example: 12.12.2024
+    *               fetal_age:
+    *                 type: string
+    *                 description: User's fetal age
+    *                 example: 12
+    *               baby_born_date:
+    *                 type: string
+    *                 description: User's baby born date
+    *                 example: 12.12.2024
     *     responses:
     *       '201':
     *         description: Successfully created a new user
@@ -516,7 +540,7 @@ router
    *                 type: integer
    *                 description: User's new age
    *                 example: 20
-   *               model_id:
+   *               mode_id:
    *                 type: string
    *                 description: User's new model ID
    *                 example: 4
@@ -536,6 +560,18 @@ router
    *                 type: string
    *                 description: User's new cycle duration
    *                 example: 34
+   *               last_period_date:
+   *                 type: string
+   *                 description: User's last period date
+   *                 example: 12.12.2024
+   *               fetal_age:
+   *                 type: string
+   *                 description: User's fetal age
+   *                 example: 12
+   *               baby_born_date:
+   *                 type: string
+   *                 description: User's baby born date
+   *                 example: 12.12.2024
    *               expired_date:
    *                 type: string
    *                 description: User's new premium expiration date

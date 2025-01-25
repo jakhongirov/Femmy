@@ -72,11 +72,14 @@ module.exports = {
          const {
             name,
             age,
-            model_id,
+            mode_id,
             phone_number,
             password,
             avarage_period,
-            cycle_duration
+            cycle_duration,
+            last_period_date,
+            fetal_age,
+            baby_born_date
          } = req.body
          const checkUser = await model.checkUser(phone_number.replace(/^(\+)?/, '+'))
 
@@ -90,11 +93,14 @@ module.exports = {
             const createUser = await model.createUser(
                name,
                age,
-               model_id,
+               mode_id,
                phone_number.replace(/^(\+)?/, '+'),
                pass_hash,
                avarage_period,
-               cycle_duration
+               cycle_duration,
+               last_period_date,
+               fetal_age,
+               baby_born_date
             )
 
             if (createUser) {
@@ -177,11 +183,14 @@ module.exports = {
             id,
             name,
             age,
-            model_id,
+            mode_id,
             phone_number,
             password,
             avarage_period,
             cycle_duration,
+            last_period_date,
+            fetal_age,
+            baby_born_date,
             expired_date,
             premium,
             weight,
@@ -197,8 +206,8 @@ module.exports = {
             await model.editAge(id, age)
          }
 
-         if (model_id) {
-            await model.editModel(id, model_id)
+         if (mode_id) {
+            await model.editModel(id, mode_id)
          }
 
          if (phone_number) {
@@ -216,6 +225,18 @@ module.exports = {
 
          if (cycle_duration) {
             await model.editCycleDuration(id, cycle_duration)
+         }
+
+         if (last_period_date) {
+            await model.editLastPeriodDate(id, last_period_date)
+         }
+
+         if (fetal_age) {
+            await model.editFetalAge(id, fetal_age)
+         }
+
+         if (baby_born_date) {
+            await model.editBabyBornDate(id, baby_born_date)
          }
 
          if (expired_date) {

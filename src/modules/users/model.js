@@ -45,22 +45,28 @@ const checkUser = (phone_number) => {
 const createUser = (
    name,
    age,
-   model_id,
+   mode_id,
    phone_number,
    pass_hash,
    avarage_period,
-   cycle_duration
+   cycle_duration,
+   last_period_date,
+   fetal_age,
+   baby_born_date
 ) => {
    const QUERY = `
       INSERT INTO 
          users (
             name,
             age,
-            model_id,
+            mode_id,
             phone_number,
             password,
             avarage_period,
-            cycle_duration
+            cycle_duration,
+            last_period_date,
+            fetal_age,
+            baby_born_date
          ) VALUES (
             $1,
             $2,
@@ -68,7 +74,10 @@ const createUser = (
             $4,
             $5,
             $6,
-            $7
+            $7,
+            $8,
+            $9,
+            $10
          ) RETURNING *;
    `;
 
@@ -76,11 +85,14 @@ const createUser = (
       QUERY,
       name,
       age,
-      model_id,
+      mode_id,
       phone_number,
       pass_hash,
       avarage_period,
-      cycle_duration
+      cycle_duration,
+      last_period_date,
+      fetal_age,
+      baby_born_date
    )
 }
 const editName = (id, name) => {
@@ -109,18 +121,18 @@ const editAge = (id, age) => {
 
    return fetch(QUERY, id, age)
 }
-const editModel = (id, model_id) => {
+const editModel = (id, mode_id) => {
    const QUERY = `
       UPDATE
          users
       SET
-         model_id = $2
+         mode_id = $2
       WHERE
          id = $1
       RETURNING *;
    `;
 
-   return fetch(QUERY, id, model_id)
+   return fetch(QUERY, id, mode_id)
 }
 const editPhoneNumber = (id, phone_number) => {
    const QUERY = `
@@ -173,6 +185,45 @@ const editCycleDuration = (id, cycle_duration) => {
    `;
 
    return fetch(QUERY, id, cycle_duration)
+}
+const editLastPeriodDate = (id, last_period_date) => {
+   const QUERY = `
+      UPDATE
+         users
+      SET
+         last_period_date = $2
+      WHERE
+         id = $1
+      RETURNING *;
+   `;
+
+   return fetch(QUERY, id, last_period_date)
+}
+const editFetalAge = (id, fetal_age) => {
+   const QUERY = `
+      UPDATE
+         users
+      SET
+         fetal_age = $2
+      WHERE
+         id = $1
+      RETURNING *;
+   `;
+
+   return fetch(QUERY, id, fetal_age)
+}
+const editBabyBornDate = (id, baby_born_date) => {
+   const QUERY = `
+      UPDATE
+         users
+      SET
+         baby_born_date = $2
+      WHERE
+         id = $1
+      RETURNING *;
+   `;
+
+   return fetch(QUERY, id, baby_born_date)
 }
 const editExpiredDate = (id, expired_date) => {
    const QUERY = `
@@ -275,6 +326,9 @@ module.exports = {
    editPassword,
    editAvaragePeriod,
    editCycleDuration,
+   editLastPeriodDate,
+   editFetalAge,
+   editBabyBornDate,
    editExpiredDate,
    editPremium,
    editWeight,
