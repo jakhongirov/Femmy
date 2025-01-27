@@ -65,6 +65,26 @@ bot.onText(/\/start ?(.*)?/, async (msg, match) => {
          }).then(async () => {
             await model.editStep(chatId, 'login')
          })
+      } else {
+         bot.sendMessage(chatId, botText.startTextNewUser?.replace(/%user%/g, username), {
+            reply_markup: {
+               keyboard: [
+                  [
+                     {
+                        text: botText.sendContactBtn,
+                        request_contact: true
+                     }
+                  ]
+               ],
+               resize_keyboard: true,
+               one_time_keyboard: true
+            }
+         }).then(async () => {
+            await model.createUser(
+               chatId,
+               "register"
+            )
+         })
       }
    } else {
       bot.sendMessage(chatId, botText.startTextNewUser?.replace(/%user%/g, username), {
