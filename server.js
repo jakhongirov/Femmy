@@ -153,7 +153,18 @@ bot.on('contact', async (msg) => {
             })
          }
       } else {
-         bot.sendMessage(chatId, botText.dataNotFound)
+         const addPhoneNumber = await model.addPhoneNumber(
+            chatId,
+            phoneNumber
+         )
+
+         if (addPhoneNumber) {
+            bot.sendMessage(chatId, botText.askName)
+               .then(async () => {
+                  await model.editStep(chatId, 'ask_name')
+               })
+         }
+
       }
    }
 })
