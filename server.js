@@ -164,7 +164,6 @@ bot.on('contact', async (msg) => {
                   await model.editStep(chatId, 'ask_name')
                })
          }
-
       }
    }
 })
