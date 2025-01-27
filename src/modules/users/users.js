@@ -309,7 +309,7 @@ module.exports = {
 
          } else {
             return res.status(401).json({
-               status: 401,
+               status: 400,
                message: "Expired code or invalid"
             })
          }
