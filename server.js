@@ -66,7 +66,7 @@ bot.onText(/\/start ?(.*)?/, async (msg, match) => {
             await model.editStep(chatId, 'login')
          })
       } else {
-         bot.sendMessage(chatId, botText.startTextNewUser?.replace(/%user%/g, username), {
+         bot.sendMessage(chatId, botText.startTextLogin?.replace(/%user%/g, username), {
             reply_markup: {
                keyboard: [
                   [
@@ -87,7 +87,7 @@ bot.onText(/\/start ?(.*)?/, async (msg, match) => {
          })
       }
    } else {
-      bot.sendMessage(chatId, botText.startTextNewUser?.replace(/%user%/g, username), {
+      bot.sendMessage(chatId, botText.startTextLogin?.replace(/%user%/g, username), {
          reply_markup: {
             keyboard: [
                [
