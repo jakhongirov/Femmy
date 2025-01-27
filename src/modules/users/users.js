@@ -308,7 +308,7 @@ module.exports = {
             }
 
          } else {
-            return res.status(401).json({
+            return res.status(400).json({
                status: 400,
                message: "Expired code or invalid"
             })
