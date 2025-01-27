@@ -288,6 +288,7 @@ module.exports = {
             const foundUserChatId = await model.foundUserChatId(foundOtp?.chat_id)
 
             if (foundUserChatId) {
+               await model.editOtpStatus(foundOtp?.id)
                const token = await new JWT({
                   id: foundUserChatId?.id
                }).sign()

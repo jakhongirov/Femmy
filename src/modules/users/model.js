@@ -285,10 +285,24 @@ const foundOtp = (code) => {
          otp
       WHERE
          code = $1
-         and created_at >= NOW() - INTERVAL '5 minutes';
+         and created_at >= NOW() - INTERVAL '5 minutes'
+         and status = true;
    `;
 
    return fetch(QUERY, code)
+}
+const editOtpStatus = (id) => {
+   const QUERY = `
+      UPDATE
+         otp
+      SET
+         status = false
+      WHERE
+         id = $1
+      RETURNING *;
+   `;
+
+   return fetch(QUERY, id)
 }
 const foundUserChatId = (chat_id) => {
    const QUERY = `
@@ -334,6 +348,7 @@ module.exports = {
    editWeight,
    editHeight,
    foundOtp,
+   editOtpStatus,
    foundUserChatId,
    deleteUser
 }

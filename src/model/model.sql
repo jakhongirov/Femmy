@@ -31,6 +31,7 @@ CREATE TABLE otp (
    id bigserial PRIMARY KEY,
    chat_id bigint,
    code text,
+   status DEFAULT true,
    created_at timestamptz DEFAULT CURRENT_TIMESTAMP
 );
 
