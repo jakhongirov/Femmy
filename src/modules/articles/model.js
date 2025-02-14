@@ -1,12 +1,14 @@
 const { fetchALL, fetch } = require('../../lib/postgres')
 
-const articlesList = (limit, page, category_id) => {
+const articlesList = (limit, page, category_id, search) => {
    const QUERY = `
       SELECT
          *
       FROM
          articles
+         ${category_id && search ? `WHERE category_id = ${category_id} and title ilike '${search}'` : ""}
          ${category_id ? `WHERE category_id = ${category_id}` : ""}
+         ${search ? `WHERE title ilike '${search}'` : ""}
       ORDER BY
          id DESC
       LIMIT $1

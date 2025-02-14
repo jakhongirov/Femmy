@@ -1354,6 +1354,12 @@ router
    *            type: integer
    *          description: Filter articles by category ID (optional)
    *        - in: query
+   *          name: title
+   *          required: false
+   *          schema: 
+   *            type: string
+   *          description: Filter articles by title (optional)
+   *        - in: query
    *          name: limit
    *          required: true
    *          schema:

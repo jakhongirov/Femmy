@@ -6,10 +6,10 @@ const FS = require('../../lib/fs/fs')
 module.exports = {
    GET: async (req, res) => {
       try {
-         const { limit, page, category_id } = req.query
+         const { limit, page, category_id, search } = req.query
 
          if (limit && page) {
-            const articlesList = await model.articlesList(limit, page, category_id)
+            const articlesList = await model.articlesList(limit, page, category_id, search)
 
             if (articlesList?.length > 0) {
                return res.status(200).json({
