@@ -6,7 +6,7 @@ const articlesList = (limit, page, category_id, search) => {
          *
       FROM
          articles
-         ${category_id && search ? `WHERE category_id = ${category_id} and title ilike '${search}'` : ""}
+         ${category_id && search ? `WHERE category_id = ${category_id} and title ilike '%${search}%'` : ""}
          ${category_id ? `WHERE category_id = ${category_id}` : ""}
          ${search ? `WHERE title ilike '%${search}%'` : ""}
       ORDER BY
