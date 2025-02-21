@@ -478,7 +478,7 @@ router
 
   /**
       * @swagger
-      * /user/register/email 
+      * /user/register/email:
       *   post:
       *     summary: Register user by email
       *     tags: [Users]
