@@ -10,6 +10,7 @@ CREATE TABLE users (
    name text,
    age int,
    phone_number text,
+   email text,
    password text,
    weight NUMERIC(10, 1),
    height NUMERIC(10, 2),

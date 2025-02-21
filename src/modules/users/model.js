@@ -95,6 +95,30 @@ const createUser = (
       baby_born_date
    )
 }
+const foundUserByEmail = (email) => {
+   const QUERY = `
+      SELECT
+         *
+      FROM
+         users
+      WHERE
+         email = $1;
+   `;
+
+   return fetch(QUERY, email)
+}
+const addUser = (email) => {
+   const QUERY = `
+      INSERT INTO
+         users (
+            email
+         ) VALUES (
+            $1 
+         ) RETURNING *;
+   `;
+
+   return fetch(QUERY, email)
+}
 const editName = (id, name) => {
    const QUERY = `
       UPDATE
@@ -146,6 +170,19 @@ const editPhoneNumber = (id, phone_number) => {
    `;
 
    return fetch(QUERY, id, phone_number)
+}
+const editEmail = (id, email) => {
+   const QUERY = `
+      UPDATE
+         users
+      SET
+         email = $2
+      WHERE
+         id = $1
+      RETURNING *;
+   `;
+
+   return fetch(QUERY, id, email)
 }
 const editPassword = (id, pass_hash) => {
    const QUERY = `
@@ -333,10 +370,13 @@ module.exports = {
    foundUser,
    checkUser,
    createUser,
+   foundUserByEmail,
+   addUser,
    editName,
    editAge,
    editModel,
    editPhoneNumber,
+   editEmail,
    editPassword,
    editAvaragePeriod,
    editCycleDuration,

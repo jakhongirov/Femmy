@@ -253,6 +253,9 @@ router
    *         phone_number:
    *           type: string
    *           description: user's phone number
+   *         email:
+   *           type: string
+   *           description: user's email
    *         password:
    *           type: string
    *           description: user's password, auto hash
@@ -472,6 +475,36 @@ router
     *         description: Server error
     */
   .post('/user/register', users.REGISTER_USER)
+
+  /**
+      * @swagger
+      * /user/register/email 
+      *   post:
+      *     summary: Register user by email
+      *     tags: [Users]
+      *     requestBody:
+      *       required: true
+      *       content: 
+      *         application/json:
+      *           schema:
+      *             type: object
+      *             properties:
+      *               email:
+      *                 type: string
+      *                 description: User's registered email
+      *                 example: diyor.jakhongirov@icloud.com
+      *     responses:
+      *       '200':
+      *         description: Successful login
+      *         content:
+      *           application/json:
+      *             schema:
+      *               $ref: '#/components/schemas/Users'
+      *       '500':
+      *         description: Server error
+   */
+  .post('/user/register/email', users.REGISTER_EMAIL)
+
 
   /**
       * @swagger

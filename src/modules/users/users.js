@@ -131,6 +131,54 @@ module.exports = {
       }
    },
 
+   REGISTER_EMAIL: async (req, res) => {
+      try {
+         const { email } = req.body
+         const foundUserByEmail = await model.foundUserByEmail(email)
+
+         if (foundUserByEmail) {
+            const token = await new JWT({
+               id: foundUserByEmail?.id
+            }).sign()
+
+            return res.status(200).json({
+               status: 200,
+               message: "Success",
+               data: foundUserByEmail,
+               token: token
+            })
+         } else {
+            const addUser = await model.addUser(email)
+
+            if (addUser) {
+               const token = await new JWT({
+                  id: addUser?.id
+               }).sign()
+
+               return res.status(200).json({
+                  status: 200,
+                  message: "Success",
+                  data: addUser,
+                  token: token
+               })
+            } else {
+               return res.status(400).json({
+                  status: 400,
+                  message: "Bad requestF"
+               })
+            }
+
+         }
+
+      } catch (error) {
+         console.log(error);
+         return res.status(500).json({
+            status: 500,
+            message: "Interval Server Error"
+         })
+      }
+   },
+
    LOGIN_USER: async (req, res) => {
       try {
          const {
@@ -185,6 +233,7 @@ module.exports = {
             age,
             mode_id,
             phone_number,
+            email,
             password,
             avarage_period,
             cycle_duration,
@@ -211,7 +260,11 @@ module.exports = {
          }
 
          if (phone_number) {
-            model.editPhoneNumber(id, phone_number.replace(/^(\+)?/, '+'))
+            await model.editPhoneNumber(id, phone_number.replace(/^(\+)?/, '+'))
+         }
+
+         if (email) {
+            await model.editEmail(id, email)
          }
 
          if (password) {
