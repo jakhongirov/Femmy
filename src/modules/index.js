@@ -1067,7 +1067,7 @@ router
  *       '500':
  *         description: Internal server error
  */
-  .get('/categories', AUTH, categoiresArticle.GET)
+  .get('/categories', categoiresArticle.GET)
 
   /**
  * @swagger
@@ -1107,7 +1107,7 @@ router
  *       '500':
  *         description: Internal server error
  */
-  .get('/categories/article', AUTH, categoiresArticle.GET_LIST)
+  .get('/categories/article', categoiresArticle.GET_LIST)
 
   /**
  * @swagger
@@ -1147,7 +1147,7 @@ router
  *       '500':
  *         description: Internal server error
  */
-  .get('/category/:id', AUTH, categoiresArticle.GET_ID)
+  .get('/category/:id', categoiresArticle.GET_ID)
 
   /**
    * @swagger
@@ -1416,7 +1416,7 @@ router
    *        '500':
    *          description: Server error
    */
-  .get('/articles/list', AUTH, articles.GET)
+  .get('/articles/list', articles.GET)
 
   /**
    * @swagger
@@ -1454,7 +1454,7 @@ router
    *          '500':
    *             description: Server error
    */
-  .get('/article/:id', AUTH, articles.GET_ID)
+  .get('/article/:id', articles.GET_ID)
 
   /**
  * @swagger
