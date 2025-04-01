@@ -134,9 +134,21 @@ const editPlatform = (id, user_id, platform) => {
       QUERY,
       id,
       user_id,
-      app_lang
+      platform
    )
 }
+const deleteDevice = (id, user_id) => {
+   const QUERY = `
+      DELETE FROM
+         devices
+      WHERE
+         id = $1 and user_id = $2
+      RETURNING *;
+   `;
+
+   return fetch(QUERY, id, user_id)
+}
+
 
 module.exports = {
    devicesList,
@@ -145,5 +157,6 @@ module.exports = {
    editPhoneBrand,
    editPhoneLang,
    editAppLang,
-   editPlatform
+   editPlatform,
+   deleteDevice
 }
