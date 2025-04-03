@@ -1092,7 +1092,7 @@ router
  *         description: Filter categories by language
  *       - in: query
  *         name: type
- *         required: true
+ *         required: false
  *         schema: 
  *           type: string
  *         description: Filter categories by type

@@ -65,12 +65,12 @@ const categoriesArticle = (lang, type) => {
       ON 
          ca.id = la.category_id AND la.row_num <= 10
       WHERE
-         ca.lang = $1 and ca.type = $2
+         ca.lang = $1 ${type ? `and ca.type = '${type}'` : ""}
       GROUP BY 
          ca.id;
    `;
 
-   return fetchALL(QUERY, lang, type)
+   return fetchALL(QUERY, lang)
 }
 const addCategory = (
    name,
