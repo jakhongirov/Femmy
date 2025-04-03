@@ -1090,6 +1090,12 @@ router
  *         schema: 
  *           type: string
  *         description: Filter categories by language
+ *       - in: query
+ *         name: type
+ *         required: true
+ *         schema: 
+ *           type: string
+ *         description: Filter categories by type
  *     responses:
  *       '200':
  *         description: A list of categories with article

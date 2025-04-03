@@ -13,7 +13,7 @@ const categories = (lang) => {
 
    return fetchALL(QUERY)
 }
-const categoriesArticle = (lang) => {
+const categoriesArticle = (lang, type) => {
    const QUERY = `
       WITH limited_articles AS (
          SELECT 
@@ -65,12 +65,12 @@ const categoriesArticle = (lang) => {
       ON 
          ca.id = la.category_id AND la.row_num <= 10
       WHERE
-         ca.lang = $1
+         ca.lang = $1 and ca.type = $2
       GROUP BY 
          ca.id;
    `;
 
-   return fetchALL(QUERY, lang)
+   return fetchALL(QUERY, lang, type)
 }
 const addCategory = (
    name,

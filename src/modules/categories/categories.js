@@ -33,8 +33,8 @@ module.exports = {
 
    GET_LIST: async (req, res) => {
       try {
-         const { lang } = req.query
-         const categoriesArticle = await model.categoriesArticle(lang)
+         const { lang, type } = req.query
+         const categoriesArticle = await model.categoriesArticle(lang, type)
 
          if (categoriesArticle?.length > 0) {
             return res.status(200).json({
