@@ -35,21 +35,23 @@ if (!fs.existsSync(imagesFolderPath)) {
    console.log('Images folder already exists within the public folder.');
 }
 
-const bot = new TelegramBot(process.env.BOT_TOKEN, {
+const bot1 = new TelegramBot(process.env.BOT_TOKEN_1, {
    polling: true
 });
 
-bot.onText(/\/start ?(.*)?/, async (msg, match) => {
+const bot2 = new TelegramBot(process.env.BOT_TOKEN_2, {
+   polling: true
+});
+
+bot1.onText(/\/start ?(.*)?/, async (msg, match) => {
    const chatId = msg.chat.id;
    const param = match[1]?.trim();
    const username = msg.from.first_name;
    const foundUser = await model.foundUser(chatId)
 
-   console.log(chatId)
-
    if (foundUser) {
       // if (param == 'login') {
-      bot.sendMessage(chatId, botText.startTextLogin?.replace(/%%user%%/g, foundUser?.name), {
+      bot1.sendMessage(chatId, botText.startTextLogin?.replace(/%%user%%/g, foundUser?.name), {
          reply_markup: {
             keyboard: [
                [
@@ -87,7 +89,7 @@ bot.onText(/\/start ?(.*)?/, async (msg, match) => {
       //    })
       // }
    } else {
-      bot.sendMessage(chatId, botText.startTextLogin?.replace(/%user%/g, username), {
+      bot1.sendMessage(chatId, botText.startTextLogin?.replace(/%user%/g, username), {
          reply_markup: {
             keyboard: [
                [
@@ -109,7 +111,75 @@ bot.onText(/\/start ?(.*)?/, async (msg, match) => {
    }
 })
 
-bot.on('contact', async (msg) => {
+bot2.onText(/\/start ?(.*)?/, async (msg, match) => {
+   const chatId = msg.chat.id;
+   const param = match[1]?.trim();
+   const username = msg.from.first_name;
+   const foundUser = await model.foundUser(chatId)
+
+   if (foundUser) {
+      // if (param == 'login') {
+      bot2.sendMessage(chatId, botText.startTextLogin?.replace(/%%user%%/g, foundUser?.name), {
+         reply_markup: {
+            keyboard: [
+               [
+                  {
+                     text: botText.sendContactBtn,
+                     request_contact: true
+                  }
+               ]
+            ],
+            resize_keyboard: true,
+            one_time_keyboard: true
+         }
+      }).then(async () => {
+         await model.editStep(chatId, 'login')
+      })
+      // } else {
+      //    bot.sendMessage(chatId, botText.startTextLogin?.replace(/%user%/g, username), {
+      //       reply_markup: {
+      //          keyboard: [
+      //             [
+      //                {
+      //                   text: botText.sendContactBtn,
+      //                   request_contact: true
+      //                }
+      //             ]
+      //          ],
+      //          resize_keyboard: true,
+      //          one_time_keyboard: true
+      //       }
+      //    }).then(async () => {
+      //       await model.createUser(
+      //          chatId,
+      //          "register"
+      //       )
+      //    })
+      // }
+   } else {
+      bot2.sendMessage(chatId, botText.startTextLogin?.replace(/%user%/g, username), {
+         reply_markup: {
+            keyboard: [
+               [
+                  {
+                     text: botText.sendContactBtn,
+                     request_contact: true
+                  }
+               ]
+            ],
+            resize_keyboard: true,
+            one_time_keyboard: true
+         }
+      }).then(async () => {
+         await model.createUser(
+            chatId,
+            "register"
+         )
+      })
+   }
+})
+
+bot1.on('contact', async (msg) => {
    const chatId = msg.chat.id;
    const foundUser = await model.foundUser(chatId)
    let phoneNumber = msg.contact.phone_number;
@@ -125,7 +195,7 @@ bot.on('contact', async (msg) => {
       )
 
       if (addPhoneNumber) {
-         bot.sendMessage(chatId, botText.askName)
+         bot1.sendMessage(chatId, botText.askName)
             .then(async () => {
                await model.editStep(chatId, 'ask_name')
             })
@@ -142,7 +212,7 @@ bot.on('contact', async (msg) => {
          const addOtp = await model.addOtp(otpCode, chatId)
 
          if (addOtp) {
-            bot.sendMessage(
+            bot1.sendMessage(
                chatId,
                botText.otpCodeTextLogin.replace(/%code%/g, otpCode),
                {
@@ -159,7 +229,7 @@ bot.on('contact', async (msg) => {
          )
 
          if (addPhoneNumber) {
-            bot.sendMessage(chatId, botText.askName)
+            bot1.sendMessage(chatId, botText.askName)
                .then(async () => {
                   await model.editStep(chatId, 'ask_name')
                })
@@ -168,21 +238,103 @@ bot.on('contact', async (msg) => {
    }
 })
 
-bot.on('message', async (msg) => {
+bot2.on('contact', async (msg) => {
+   const chatId = msg.chat.id;
+   const foundUser = await model.foundUser(chatId)
+   let phoneNumber = msg.contact.phone_number;
+
+   if (msg.contact && foundUser?.bot_step == 'register') {
+      if (!phoneNumber.startsWith('+')) {
+         phoneNumber = `+${phoneNumber}`;
+      }
+
+      const addPhoneNumber = await model.addPhoneNumber(
+         chatId,
+         phoneNumber
+      )
+
+      if (addPhoneNumber) {
+         bot2.sendMessage(chatId, botText.askName)
+            .then(async () => {
+               await model.editStep(chatId, 'ask_name')
+            })
+      }
+
+   } else if (msg.contact && foundUser?.bot_step == 'login') {
+
+      if (!phoneNumber.startsWith('+')) {
+         phoneNumber = `+${phoneNumber}`;
+      }
+
+      if (foundUser?.phone_number == phoneNumber) {
+         const otpCode = await generateOTP(6)
+         const addOtp = await model.addOtp(otpCode, chatId)
+
+         if (addOtp) {
+            bot2.sendMessage(
+               chatId,
+               botText.otpCodeTextLogin.replace(/%code%/g, otpCode),
+               {
+                  parse_mode: 'HTML'
+               }
+            ).then(async () => {
+               await model.editStep(chatId, 'otp_code_login')
+            })
+         }
+      } else {
+         const addPhoneNumber = await model.addPhoneNumber(
+            chatId,
+            phoneNumber
+         )
+
+         if (addPhoneNumber) {
+            bot2.sendMessage(chatId, botText.askName)
+               .then(async () => {
+                  await model.editStep(chatId, 'ask_name')
+               })
+         }
+      }
+   }
+})
+
+bot1.on('message', async (msg) => {
    const chatId = msg.chat.id;
    const text = msg.text;
    const foundUser = await model.foundUser(chatId)
 
    if (foundUser?.bot_step == 'ask_name' && text) {
       const addName = await model.addName(chatId, text)
-      console.log(addName)
-
 
       if (addName) {
          const otpCode = await generateOTP(6)
          await model.addOtp(otpCode, chatId)
 
-         bot.sendMessage(
+         bot1.sendMessage(
+            chatId,
+            botText.otpCodeTextRegister.replace(/%code%/g, otpCode),
+            {
+               parse_mode: 'HTML'
+            }
+         ).then(async () => {
+            await model.editStep(chatId, 'otp_code_register')
+         })
+      }
+   }
+})
+
+bot2.on('message', async (msg) => {
+   const chatId = msg.chat.id;
+   const text = msg.text;
+   const foundUser = await model.foundUser(chatId)
+
+   if (foundUser?.bot_step == 'ask_name' && text) {
+      const addName = await model.addName(chatId, text)
+
+      if (addName) {
+         const otpCode = await generateOTP(6)
+         await model.addOtp(otpCode, chatId)
+
+         bot2.sendMessage(
             chatId,
             botText.otpCodeTextRegister.replace(/%code%/g, otpCode),
             {
