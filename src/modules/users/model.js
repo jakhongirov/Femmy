@@ -30,6 +30,19 @@ const foundUser = (id) => {
 
    return fetch(QUERY, id)
 }
+const addTracking = (user_id, currentTime) => {
+   const QUERY = `
+      UPDATE
+         users
+      SET
+         tracking = array_append(tracking, $2)
+      WHERE
+         id = $1
+      RETURNING *;
+   `;
+
+   return fetch(QUERY, user_id, currentTime)
+}
 const checkUser = (phone_number) => {
    const QUERY = `
       SELECT
@@ -314,6 +327,32 @@ const editHeight = (id, height) => {
 
    return fetch(QUERY, id, height)
 }
+const editNimadir = (id, nimadir) => {
+   const QUERY = `
+      UPDATE
+         users
+      SET
+         nimadir = $2
+      WHERE
+         id = $1
+      RETURNING *;
+   `;
+
+   return fetch(QUERY, id, nimadir)
+}
+const editPincode = (id, pincode) => {
+   const QUERY = `
+      UPDATE
+         users
+      SET
+         pincode = $2
+      WHERE
+         id = $1
+      RETURNING *;
+   `;
+
+   return fetch(QUERY, id, pincode)
+}
 const foundOtp = (code) => {
    QUERY = `
       SELECT
@@ -368,6 +407,7 @@ const deleteUser = (id) => {
 module.exports = {
    usersList,
    foundUser,
+   addTracking,
    checkUser,
    createUser,
    foundUserByEmail,
@@ -387,6 +427,8 @@ module.exports = {
    editPremium,
    editWeight,
    editHeight,
+   editNimadir,
+   editPincode,
    foundOtp,
    editOtpStatus,
    foundUserChatId,

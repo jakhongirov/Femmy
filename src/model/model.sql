@@ -25,6 +25,9 @@ CREATE TABLE users (
    chat_id bigint,
    bot_step text,
    telegram boolean DEFAULT false,
+   nimadir boolean DEFAULT false,
+   pincode text,
+   tracking text [],
    created_at timestamptz DEFAULT CURRENT_TIMESTAMP
 );
 

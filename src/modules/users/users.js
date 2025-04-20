@@ -67,6 +67,36 @@ module.exports = {
       }
    },
 
+   GET_ID_TRACKING: async (req, res) => {
+      try {
+         const { user_id } = req.params
+         const foundUser = await model.foundUser(user_id)
+
+         if (foundUser) {
+            const currentTime = getCurrentTimeFormatted();
+            await model.addTracking(foundUser.user_id, currentTime);
+
+            return res.status(200).json({
+               status: 200,
+               message: "Success",
+               data: foundUser
+            })
+         } else {
+            return res.status(404).json({
+               status: 404,
+               message: "Not found"
+            })
+         }
+
+      } catch (error) {
+         console.log(error);
+         return res.status(500).json({
+            status: 500,
+            message: "Interval Server Error"
+         })
+      }
+   },
+
    REGISTER_USER: async (req, res) => {
       try {
          const {
@@ -243,9 +273,10 @@ module.exports = {
             expired_date,
             premium,
             weight,
-            height
+            height,
+            nimadir,
+            pincode
          } = req.body
-         let userData = {}
 
          if (name) {
             await model.editName(id, name)
@@ -306,6 +337,13 @@ module.exports = {
 
          if (height) {
             await model.editHeight(id, height)
+         }
+
+         if (nimadir) {
+            await model.editNimadir(id, nimadir)
+         }
+         if (pincode) {
+            await model.editPincode(id, pincode)
          }
 
          const foundUser = await model.foundUser(id)

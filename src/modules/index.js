@@ -375,6 +375,44 @@ router
 
   /**
    * @swagger
+   * /user/admin/{user_id}:
+   *   get:
+   *     summary: Get user data by ID
+   *     tags: [Users]
+   *     security:
+   *       - token: []
+   *     parameters:
+   *       - in: header
+   *         name: token
+   *         required: true
+   *         schema:
+   *           type: string
+   *         description: Authentication token
+   *       - in: path
+   *         name: user_id
+   *         required: true
+   *         schema:
+   *           type: integer
+   *         description: User's ID
+   *     responses:
+   *       '200':
+   *         description: User data retrieved successfully
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/Users'
+   *         headers:
+   *           token: 
+   *             description: Token for authentication
+   *             schema:
+   *               type: string
+   *       '500':
+   *         description: Server error
+   */
+  .get('/user/admin/:user_id', AUTH, users.GET_ID)
+
+  /**
+   * @swagger
    * /user/{user_id}:
    *   get:
    *     summary: Get user data by ID
@@ -409,7 +447,7 @@ router
    *       '500':
    *         description: Server error
    */
-  .get('/user/:user_id', AUTH, users.GET_ID)
+  .get('/user/:user_id', AUTH, users.GET_ID_TRACKING)
 
   /**
     * @swagger
@@ -621,6 +659,14 @@ router
    *                 type: number
    *                 description: User's height
    *                 example: 1.67
+   *               nimadir:
+   *                 type: boolean
+   *                 description: User's nimadir
+   *                 example: true
+   *               pincode:
+   *                 type: string
+   *                 description: User's pincode
+   *                 example: 234ka
    *     responses:
    *       '200':
    *         description: User data successfully updated
