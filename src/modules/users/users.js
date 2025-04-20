@@ -2,6 +2,7 @@ require('dotenv').config();
 const model = require('./model')
 const JWT = require('../../lib/jwt')
 const bcryptjs = require('bcryptjs')
+const { getCurrentTimeFormatted } = require('../../lib/functions')
 
 module.exports = {
    GET_LIST: async (req, res) => {

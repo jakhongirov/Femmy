@@ -57,6 +57,7 @@ CREATE TABLE categories_article (
    image_url text,
    image_name text,
    free boolean DEFAULT true,
+   html_code text,
    created_at timestamptz DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -71,5 +72,6 @@ CREATE TABLE articles (
    video_url text,
    featured boolean DEFAULT false,
    free boolean DEFAULT true,
+   html_code text,
    created_at timestamptz DEFAULT CURRENT_TIMESTAMP
 );
