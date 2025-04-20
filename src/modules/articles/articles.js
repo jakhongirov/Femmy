@@ -77,7 +77,8 @@ module.exports = {
             source,
             video_url,
             featured,
-            free
+            free,
+            html_code
          } = req.body
 
          const imgUrl = uploadPhoto ? `${process.env.BACKEND_URL}/${uploadPhoto?.filename}` : null;
@@ -91,6 +92,7 @@ module.exports = {
             video_url,
             featured,
             free,
+            html_code,
             imgUrl,
             imgName
          )
@@ -128,7 +130,8 @@ module.exports = {
             source,
             video_url,
             featured,
-            free
+            free,
+            html_code
          } = req.body
          const foundArticle = await model.foundArticle(id)
          let imgUrl = '';
@@ -156,6 +159,7 @@ module.exports = {
                video_url,
                featured,
                free,
+               html_code,
                imgUrl,
                imgName
             )

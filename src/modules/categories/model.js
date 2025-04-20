@@ -77,6 +77,7 @@ const addCategory = (
    lang,
    type,
    free,
+   html_code,
    imgUrl,
    imgName
 ) => {
@@ -87,6 +88,7 @@ const addCategory = (
             lang,
             type,
             free,
+            html_code,
             image_url,
             image_name
          ) VALUES (
@@ -95,7 +97,8 @@ const addCategory = (
             $3,
             $4,
             $5,
-            $6
+            $6,
+            $7
          ) RETURNING *;
    `;
 
@@ -105,6 +108,7 @@ const addCategory = (
       lang,
       type,
       free,
+      html_code,
       imgUrl,
       imgName
    )
@@ -127,6 +131,7 @@ const editCategory = (
    lang,
    type,
    free,
+   html_code,
    imgUrl,
    imgName
 ) => {
@@ -138,8 +143,9 @@ const editCategory = (
          lang = $3,
          type = $4,
          free = $5,
-         image_url = $6,
-         image_name = $7
+         html_code = $6,
+         image_url = $7,
+         image_name = $8
       WHERE
          id = $1
       RETURNING *;
@@ -152,6 +158,7 @@ const editCategory = (
       lang,
       type,
       free,
+      html_code,
       imgUrl,
       imgName
    )

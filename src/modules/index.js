@@ -1057,6 +1057,9 @@ router
    *          type:
    *            type: string
    *            description: category's type
+   *          html_code:
+   *            type: string
+   *            description: category's html_code
    *          image_url:
    *            type: string
    *            description: category's image link
@@ -1251,6 +1254,10 @@ router
    *                    type: string
    *                    description: category's type
    *                    example: bilmima
+   *                  html_code:
+   *                    type: string
+   *                    description: category's html_code
+   *                    example: bilmima
    *                  free:
    *                    type: boolean
    *                    description: category's free or for premium users
@@ -1308,6 +1315,10 @@ router
    *                  type:
    *                    type: string
    *                    description: category's type
+   *                    example: bilmima
+   *                  html_code:
+   *                    type: string
+   *                    description: category's html_code
    *                    example: bilmima
    *                  free:
    *                    type: boolean
@@ -1387,6 +1398,9 @@ router
    *          description:
    *            type: string
    *            description: article text
+   *          html_code:
+   *            type: string
+   *            description: article html_code
    *          image_url:
    *            type: string
    *            description: article image url
@@ -1558,6 +1572,10 @@ router
  *                 type: string
  *                 description: Article text
  *                 example: Lorem ipsum dolor sit amet
+ *               html_code: 
+ *                 type: string
+ *                 description: Article html_code
+ *                 example: Lorem ipsum dolor sit amet
  *               source:
  *                 type: string
  *                 description: Article source
@@ -1627,6 +1645,10 @@ router
   *               description: 
   *                 type: string
   *                 description: Article text
+  *                 example: Lorem ipsum dolor sit amet
+  *               html_code: 
+  *                 type: string
+  *                 description: Article html_code
   *                 example: Lorem ipsum dolor sit amet
   *               source:
   *                 type: string

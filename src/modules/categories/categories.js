@@ -92,7 +92,8 @@ module.exports = {
             name,
             lang,
             type,
-            free
+            free,
+            html_code
          } = req.body
 
          const imgUrl = uploadPhoto ? `${process.env.BACKEND_URL}/${uploadPhoto?.filename}` : null;
@@ -103,6 +104,7 @@ module.exports = {
             lang,
             type,
             free,
+            html_code,
             imgUrl,
             imgName
          )
@@ -137,7 +139,8 @@ module.exports = {
             name,
             lang,
             type,
-            free
+            free,
+            html_code
          } = req.body
          const foundCategory = await model.foundCategory(id)
          let imgUrl = '';
@@ -162,6 +165,7 @@ module.exports = {
                lang,
                type,
                free,
+               html_code,
                imgUrl,
                imgName
             )

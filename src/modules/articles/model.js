@@ -41,6 +41,7 @@ const addArticle = (
    video_url,
    featured,
    free,
+   html_code,
    imgUrl,
    imgName
 ) => {
@@ -54,6 +55,7 @@ const addArticle = (
             video_url,
             featured,
             free,
+            html_code,
             image_url,
             image_name
          ) VALUES (
@@ -65,7 +67,8 @@ const addArticle = (
             $6,
             $7,
             $8,
-            $9
+            $9,
+            $10
          ) RETURNING *;
    `;
 
@@ -78,6 +81,7 @@ const addArticle = (
       video_url,
       featured,
       free,
+      html_code,
       imgUrl,
       imgName
    )
@@ -91,6 +95,7 @@ const editArticle = (
    video_url,
    featured,
    free,
+   html_code,
    imgUrl,
    imgName
 ) => {
@@ -105,8 +110,9 @@ const editArticle = (
          video_url = $6,
          featured = $7,
          free = $8,
-         image_url = $9,
-         image_name = $10
+         html_code = $9,
+         image_url = $10,
+         image_name = $11
       WHERE
          id = $1
       RETURNING *;
@@ -122,6 +128,7 @@ const editArticle = (
       video_url,
       featured,
       free,
+      html_code,
       imgUrl,
       imgName
    )
