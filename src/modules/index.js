@@ -298,6 +298,15 @@ router
    *         telegram:
    *           type: boolean
    *           description: sign up with telegram
+   *         nimadir:
+   *           type: boolean
+   *           description: user's nimadir
+   *         pincode:
+   *           type: string
+   *           description: user's pincode
+   *         tracking:
+   *           type: string
+   *           description: user's tracking
    *         created_at:
    *           type: string
    *           description: user creation date
@@ -319,6 +328,9 @@ router
    *         chat_id: null
    *         bot_step: null
    *         telegram: false
+   *         nimadir: true
+   *         pincode: 123ka
+   *         tracking: ["12.04.2025 12:50"]
    *         created_at: 2024-01-23 10:52:41 +0000
    */
 
