@@ -11,6 +11,7 @@ const users = require('./users/users')
 const devices = require('./devices/devices')
 const categoiresArticle = require('./categories/categories')
 const articles = require('./articles/articles')
+const ai = require('./ai/ai')
 
 router
 
@@ -1715,5 +1716,323 @@ router
  *             description: Server error
  */
   .delete('/article/delete', AUTH, articles.DELETE_ARTICLE)
+
+  // AI
+  /**
+   * @swagger
+   * components:
+   *   schemas:
+   *     AI:
+   *       type: object
+   *       properties:
+   *         id:
+   *           type: integer
+   *           example: 1
+   *         name:
+   *           type: string
+   *           example: GPT-4 Bot
+   *         token:
+   *           type: string
+   *           example: sk-abc123token
+   *         mode_id:
+   *           type: integer
+   *           example: 2
+   *         prompt:
+   *           type: string
+   *           example: You are an expert virtual assistant. Answer concisely.
+   *         created_at:
+   *           type: string
+   *           format: date-time
+   *           example: "2025-04-13T12:00:00Z"
+   */
+
+  /**
+   * @swagger
+   * tags:
+   *    name: AI
+   *    description: AI managing API
+   */
+
+  /**
+   * @swagger
+   * /ai/list:
+   *   get:
+   *     summary: Retrieve a list of all AI configurations
+   *     tags: [AI]
+   *     responses:
+   *       200:
+   *         description: A list of AI configs
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 status:
+   *                   type: integer
+   *                   example: 200
+   *                 message:
+   *                   type: string
+   *                   example: Success
+   *                 data:
+   *                   type: array
+   *                   items:
+   *                     $ref: '#/components/schemas/AI'
+   *       404:
+   *         description: No AI configurations found
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 status:
+   *                   type: integer
+   *                   example: 404
+   *                 message:
+   *                   type: string
+   *                   example: Not found
+   *       500:
+   *         description: Internal server error
+   */
+  .get('/ai/list', AUTH, ai.GET)
+
+  /**
+   * @swagger
+   * /ai/{mode_id}:
+   *   get:
+   *     summary: Get a single AI config by its mode ID
+   *     tags: [AI]
+   *     security:
+   *       - bearerAuth: []
+   *     parameters:
+   *       - in: path
+   *         name: mode_id
+   *         required: true
+   *         schema:
+   *           type: integer
+   *         description: The mode ID of the AI configuration
+   *     responses:
+   *       200:
+   *         description: AI configuration found
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 status:
+   *                   type: integer
+   *                   example: 200
+   *                 message:
+   *                   type: string
+   *                   example: Success
+   *                 data:
+   *                   $ref: '#/components/schemas/AI'
+   *       404:
+   *         description: AI configuration not found
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 status:
+   *                   type: integer
+   *                   example: 404
+   *                 message:
+   *                   type: string
+   *                   example: Not found
+   *       500:
+   *         description: Internal server error
+   */
+  .get('/ai/:mode_id', AUTH, ai.GET_MODE_ID)
+
+  /**
+   * @swagger
+   * /ai/add:
+   *   post:
+   *     summary: Add a new AI configuration
+   *     tags: [AI]
+   *     security:
+   *       - bearerAuth: []
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         application/json:
+   *           schema:
+   *             type: object
+   *             required:
+   *               - name
+   *               - token
+   *               - mode_id
+   *               - prompt
+   *             properties:
+   *               name:
+   *                 type: string
+   *                 example: ChatGPT Turbo
+   *               token:
+   *                 type: string
+   *                 example: sk-xxx-your-openai-token
+   *               mode_id:
+   *                 type: integer
+   *                 example: 1
+   *               prompt:
+   *                 type: string
+   *                 example: You are a helpful assistant that answers in a friendly tone.
+   *     responses:
+   *       201:
+   *         description: AI configuration created successfully
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 status:
+   *                   type: integer
+   *                   example: 201
+   *                 message:
+   *                   type: string
+   *                   example: Success
+   *                 data:
+   *                   $ref: '#/components/schemas/AI'
+   *       400:
+   *         description: Bad request
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 status:
+   *                   type: integer
+   *                   example: 400
+   *                 message:
+   *                   type: string
+   *                   example: Bad request
+   *       500:
+   *         description: Internal server error
+   */
+  .post('/ai/add', AUTH, ai.ADD_AI)
+
+  /**
+   * @swagger
+   * /ai/edit:
+   *   put:
+   *     summary: Edit an existing AI configuration
+   *     tags: [AI]
+   *     security:
+   *       - bearerAuth: []
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         application/json:
+   *           schema:
+   *             type: object
+   *             required:
+   *               - id
+   *               - name
+   *               - token
+   *               - mode_id
+   *               - prompt
+   *             properties:
+   *               id:
+   *                 type: integer
+   *                 example: 1
+   *               name:
+   *                 type: string
+   *                 example: ChatGPT Turbo
+   *               token:
+   *                 type: string
+   *                 example: sk-xxx-your-openai-token
+   *               mode_id:
+   *                 type: integer
+   *                 example: 1
+   *               prompt:
+   *                 type: string
+   *                 example: You are a helpful assistant that answers in a friendly tone.
+   *     responses:
+   *       200:
+   *         description: AI configuration updated successfully
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 status:
+   *                   type: integer
+   *                   example: 200
+   *                 message:
+   *                   type: string
+   *                   example: Success
+   *                 data:
+   *                   $ref: '#/components/schemas/AI'
+   *       400:
+   *         description: Bad request
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 status:
+   *                   type: integer
+   *                   example: 400
+   *                 message:
+   *                   type: string
+   *                   example: Bad request
+   *       500:
+   *         description: Internal server error
+   */
+  .put('/ai/edit', AUTH, ai.EDIT_AI)
+
+  /**
+   * @swagger
+   * /ai/delete:
+   *   delete:
+   *     summary: Delete an AI configuration by ID
+   *     tags: [AI]
+   *     security:
+   *       - bearerAuth: []
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         application/json:
+   *           schema:
+   *             type: object
+   *             required:
+   *               - id
+   *             properties:
+   *               id:
+   *                 type: integer
+   *                 example: 1
+   *     responses:
+   *       200:
+   *         description: AI configuration deleted successfully
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 status:
+   *                   type: integer
+   *                   example: 200
+   *                 message:
+   *                   type: string
+   *                   example: Success
+   *                 data:
+   *                   type: object
+   *                   example: { id: 1 }
+   *       400:
+   *         description: Bad request (e.g., ID not found)
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 status:
+   *                   type: integer
+   *                   example: 400
+   *                 message:
+   *                   type: string
+   *                   example: Bad request
+   *       500:
+   *         description: Internal server error
+   */
+  .delete('/ai/delete', AUTH, ai.DELETE_AI)
 
 module.exports = router

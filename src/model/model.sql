@@ -75,3 +75,12 @@ CREATE TABLE articles (
    html_code text,
    created_at timestamptz DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE ai (
+   id bigserial PRIMARY KEY,
+   name text,
+   token text,
+   mode_id int,
+   prompt text,
+   created_at timestamptz DEFAULT CURRENT_TIMESTAMP
+);
