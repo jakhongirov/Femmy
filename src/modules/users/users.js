@@ -98,6 +98,37 @@ module.exports = {
       }
    },
 
+   GET_STATUS: async (req, res) => {
+      try {
+         const { user_id } = req.params
+         const foundUser = await model.foundUser(user_id)
+
+         if (foundUser) {
+            return res.status(200).json({
+               status: 200,
+               message: "Success",
+               data: {
+                  name: foundUser.name,
+                  premium: foundUser.premium,
+                  nimadir: foundUser.nimadir
+               }
+            })
+         } else {
+            return res.status(404).json({
+               status: 404,
+               message: "Not found"
+            })
+         }
+
+      } catch (error) {
+         console.log(error);
+         return res.status(500).json({
+            status: 500,
+            message: "Interval Server Error"
+         })
+      }
+   },
+
    REGISTER_USER: async (req, res) => {
       try {
          const {

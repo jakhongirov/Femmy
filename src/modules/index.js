@@ -463,6 +463,44 @@ router
   .get('/user/:user_id', AUTH, users.GET_ID_TRACKING)
 
   /**
+   * @swagger
+   * /user/status/{user_id}:
+   *   get:
+   *     summary: Get user status by ID
+   *     tags: [Users]
+   *     security:
+   *       - token: []
+   *     parameters:
+   *       - in: header
+   *         name: token
+   *         required: true
+   *         schema:
+   *           type: string
+   *         description: Authentication token
+   *       - in: path
+   *         name: user_id
+   *         required: true
+   *         schema:
+   *           type: integer
+   *         description: User's ID
+   *     responses:
+   *       '200':
+   *         description: User data retrieved successfully
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/Users'
+   *         headers:
+   *           token: 
+   *             description: Token for authentication
+   *             schema:
+   *               type: string
+   *       '500':
+   *         description: Server error
+   */
+  .get('/user/status/:user_id', AUTH, users.GET_STATUS)
+
+  /**
     * @swagger
     * /user/register:
     *   post:
