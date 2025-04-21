@@ -469,7 +469,7 @@ router
    *     summary: Get user status by ID
    *     tags: [Users]
    *     security:
-   *       - bearerAuth: []  // Assuming you're using JWT or similar; rename if different
+   *       - token: []
    *     parameters:
    *       - in: header
    *         name: token
