@@ -469,7 +469,7 @@ router
    *     summary: Get user status by ID
    *     tags: [Users]
    *     security:
-   *       - token: []
+   *       - bearerAuth: []  // Assuming you're using JWT or similar; rename if different
    *     parameters:
    *       - in: header
    *         name: token
@@ -482,21 +482,48 @@ router
    *         required: true
    *         schema:
    *           type: integer
-   *         description: User's ID
+   *         description: ID of the user
    *     responses:
-   *       '200':
+   *       200:
    *         description: User data retrieved successfully
    *         content:
    *           application/json:
    *             schema:
-   *               $ref: '#/components/schemas/Users'
-   *         headers:
-   *           token: 
-   *             description: Token for authentication
+   *               type: object
+   *               properties:
+   *                 status:
+   *                   type: integer
+   *                   example: 200
+   *                 message:
+   *                   type: string
+   *                   example: Success
+   *                 data:
+   *                   type: object
+   *                   properties:
+   *                     name:
+   *                       type: string
+   *                       example: John Doe
+   *                     premium:
+   *                       type: boolean
+   *                       example: true
+   *                     nimadir:
+   *                       type: string
+   *                       example: Some additional info
+   *       404:
+   *         description: User not found
+   *         content:
+   *           application/json:
    *             schema:
-   *               type: string
-   *       '500':
-   *         description: Server error
+   *               type: object
+   *               properties:
+   *                 status:
+   *                   type: integer
+   *                   example: 404
+   *                 message:
+   *                   type: string
+   *                   example: Not found
+   *       500:
+   *         description: Internal server error
    */
   .get('/user/status/:user_id', AUTH, users.GET_STATUS)
 
@@ -566,66 +593,66 @@ router
   .post('/user/register', users.REGISTER_USER)
 
   /**
-      * @swagger
-      * /user/register/email:
-      *   post:
-      *     summary: Register user by email
-      *     tags: [Users]
-      *     requestBody:
-      *       required: true
-      *       content: 
-      *         application/json:
-      *           schema:
-      *             type: object
-      *             properties:
-      *               email:
-      *                 type: string
-      *                 description: User's registered email
-      *                 example: diyor.jakhongirov@icloud.com
-      *     responses:
-      *       '200':
-      *         description: Successful login
-      *         content:
-      *           application/json:
-      *             schema:
-      *               $ref: '#/components/schemas/Users'
-      *       '500':
-      *         description: Server error
+    * @swagger
+    * /user/register/email:
+    *   post:
+    *     summary: Register user by email
+    *     tags: [Users]
+    *     requestBody:
+    *       required: true
+    *       content: 
+    *         application/json:
+    *           schema:
+    *             type: object
+    *             properties:
+    *               email:
+    *                 type: string
+    *                 description: User's registered email
+    *                 example: diyor.jakhongirov@icloud.com
+    *     responses:
+    *       '200':
+    *         description: Successful login
+    *         content:
+    *           application/json:
+    *             schema:
+    *               $ref: '#/components/schemas/Users'
+    *       '500':
+    *         description: Server error
    */
   .post('/user/register/email', users.REGISTER_EMAIL)
 
 
   /**
-      * @swagger
-      * /user/login:
-      *   post:
-      *     summary: Login user
-      *     tags: [Users]
-      *     requestBody:
-      *       required: true
-      *       content:
-      *         application/json:
-      *           schema:
-      *             type: object
-      *             properties:
-      *               phone_number:
-      *                 type: string
-      *                 description: User's registered phone number
-      *                 example: +998991234567
-      *               password:
-      *                 type: string
-      *                 description: User's password
-      *                 example: 1234
-      *     responses:
-      *       '200':
-      *         description: Successful login
-      *         content:
-      *           application/json:
-      *             schema:
-      *               $ref: '#/components/schemas/Users'
-      *       '500':
-      *         description: Server error
-      */
+    * @swagger
+    * /user/login:
+    *   post:
+    *     summary: Login user
+    *     tags: [Users]
+    *     requestBody:
+    *       required: true
+    *       content:
+    *         application/json:
+    *           schema:
+    *             type: object
+    *             properties:
+    *               phone_number:
+    *                 type: string
+    *                 description: User's registered phone number
+    *                 example: +998991234567
+    *               password:
+    *                 type: string
+    *                 description: User's password
+    *                 example: 1234
+    *     responses:
+    *       '200':
+    *         description: Successful login
+    *         content:
+    *           application/json:
+    *             schema:
+    *               $ref: '#/components/schemas/Users'
+    *       '500':
+    *         description: Server error
+    */
   .post('/user/login', users.LOGIN_USER)
 
   /**
