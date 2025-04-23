@@ -310,71 +310,71 @@ module.exports = {
             pincode
          } = req.body
 
-         if (name) {
+         if (name && name !== "null") {
             await model.editName(id, name)
          }
 
-         if (age) {
+         if (age && age !== "null") {
             await model.editAge(id, age)
          }
 
-         if (mode_id) {
+         if (mode_id && mode_id !== "null") {
             await model.editModel(id, mode_id)
          }
 
-         if (phone_number) {
+         if (phone_number && phone_number !== "null") {
             await model.editPhoneNumber(id, phone_number.replace(/^(\+)?/, '+'))
          }
 
-         if (email) {
+         if (email && email !== "null") {
             await model.editEmail(id, email)
          }
 
-         if (password) {
+         if (password && password !== "null") {
             const pass_hash = await bcryptjs.hash(password, 10);
             await model.editPassword(id, pass_hash)
          }
 
-         if (avarage_period) {
+         if (avarage_period && avarage_period !== "null") {
             await model.editAvaragePeriod(id, avarage_period)
          }
 
-         if (cycle_duration) {
+         if (cycle_duration && cycle_duration !== "null") {
             await model.editCycleDuration(id, cycle_duration)
          }
 
-         if (last_period_date) {
+         if (last_period_date && last_period_date !== "null") {
             await model.editLastPeriodDate(id, last_period_date)
          }
 
-         if (fetal_age) {
+         if (fetal_age && fetal_age !== "null") {
             await model.editFetalAge(id, fetal_age)
          }
 
-         if (baby_born_date) {
+         if (baby_born_date && baby_born_date !== "null") {
             await model.editBabyBornDate(id, baby_born_date)
          }
 
-         if (expired_date) {
+         if (expired_date && expired_date !== "null") {
             await model.editExpiredDate(id, expired_date)
          }
 
-         if (premium) {
+         if (premium && premium !== "null") {
             await model.editPremium(id, premium)
          }
 
-         if (weight) {
+         if (weight && weight !== "null") {
             await model.editWeight(id, weight)
          }
 
-         if (height) {
+         if (height && height !== "null") {
             await model.editHeight(id, height)
          }
 
-         if (nimadir) {
+         if (nimadir && nimadir !== "null") {
             await model.editNimadir(id, nimadir)
          }
-         if (pincode) {
+         if (pincode && pincode !== "null") {
             await model.editPincode(id, pincode)
          }
 
