@@ -1951,8 +1951,10 @@ router
    *                 type: string
    *                 example: GPT 3.5
    *               questions:
-   *                 type: string
-   *                 example: ["lorem", "kimdir"].
+   *                 type: array
+   *                 items:
+   *                   type: string
+   *                 example: ["lorem", "kimdir"]
    *     responses:
    *       201:
    *         description: AI configuration created successfully
@@ -2027,8 +2029,10 @@ router
    *                 type: string
    *                 example: GPT 3.5
    *               questions:
-   *                 type: string
-   *                 example: ["lorem", "kimdir"].
+   *                 type: array
+   *                 items:
+   *                   type: string
+   *                 example: ["lorem", "kimdir"]
    *     responses:
    *       200:
    *         description: AI configuration updated successfully
