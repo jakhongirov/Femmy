@@ -1,9 +1,9 @@
-const model = require('./model')
+const modelDb = require('./model')
 
 module.exports = {
    GET: async (req, res) => {
       try {
-         const aiList = await model.aiList()
+         const aiList = await modelDb.aiList()
 
          if (aiList?.length > 0) {
             return res.status(200).json({
@@ -31,7 +31,7 @@ module.exports = {
       try {
          const { mode_id } = req.params
 
-         const foundAi = await model.foundAi(mode_id)
+         const foundAi = await modelDb.foundAi(mode_id)
 
          if (foundAi) {
             return res.status(200).json({
@@ -66,7 +66,7 @@ module.exports = {
             questions
          } = req.body
 
-         const addAi = await model.addAi(
+         const addAi = await modelDb.addAi(
             name,
             token,
             mode_id,
@@ -109,7 +109,7 @@ module.exports = {
             questions
          } = req.body
 
-         const editAi = await model.editAi(
+         const editAi = await modelDb.editAi(
             id,
             name,
             token,
@@ -143,7 +143,7 @@ module.exports = {
    DELETE_AI: async (req, res) => {
       try {
          const { id } = req.body
-         const deleteAi = model.deleteAi(id)
+         const deleteAi = modelDb.deleteAi(id)
 
          if (deleteAi) {
             return res.status(200).json({
