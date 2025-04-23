@@ -77,7 +77,7 @@ const editAi = (
          token = $3,
          mode_id = $4,
          prompt = $5,
-         prompt = $6,
+         model = $6,
          questions = $7
       WHERE
          id = $1
