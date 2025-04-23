@@ -1913,7 +1913,7 @@ router
    *       500:
    *         description: Internal server error
    */
-  .get('/ai/:mode_id', AUTH, ai.GET_MODE_ID)
+  .get('/ai/:mode_id',  ai.GET_MODE_ID)
 
   /**
    * @swagger

@@ -405,15 +405,10 @@ module.exports = {
    OTP: async (req, res) => {
       try {
          const { code } = req.body
-         console.log(code)
          const foundOtp = await model.foundOtp(code)
-
-         console.log(foundOtp)
 
          if (foundOtp) {
             const foundUserChatId = await model.foundUserChatId(foundOtp?.chat_id)
-
-            console.log(foundUserChatId)
 
             if (foundUserChatId) {
                await model.editOtpStatus(foundOtp?.id)
