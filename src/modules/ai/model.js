@@ -29,6 +29,7 @@ const addAi = (
    token,
    mode_id,
    prompt,
+   model,
    questions
 ) => {
    const QUERY = `
