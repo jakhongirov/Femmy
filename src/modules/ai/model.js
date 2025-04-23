@@ -28,7 +28,8 @@ const addAi = (
    name,
    token,
    mode_id,
-   prompt
+   prompt,
+   questions
 ) => {
    const QUERY = `
       INSERT INTO
@@ -36,12 +37,16 @@ const addAi = (
             name,
             token,
             mode_id,
-            prompt
+            prompt,
+            model,
+            questions
          ) VALUES (
             $1, 
             $2, 
             $3, 
-            $4
+            $4,
+            $5,
+            $6
          ) RETURNING *;
    `;
 
@@ -50,7 +55,9 @@ const addAi = (
       name,
       token,
       mode_id,
-      prompt
+      prompt,
+      model,
+      questions
    )
 }
 const editAi = (
@@ -58,7 +65,9 @@ const editAi = (
    name,
    token,
    mode_id,
-   prompt
+   prompt,
+   model,
+   questions
 ) => {
    const QUERY = `
       UPDATE
@@ -67,7 +76,9 @@ const editAi = (
          name = $2,
          token = $3,
          mode_id = $4,
-         prompt = $5
+         prompt = $5,
+         prompt = $6,
+         questions = $7
       WHERE
          id = $1
       RETURNING *;
@@ -79,7 +90,9 @@ const editAi = (
       name,
       token,
       mode_id,
-      prompt
+      prompt,
+      model,
+      questions
    )
 }
 const deleteAi = (id) => {

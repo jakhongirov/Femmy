@@ -1805,6 +1805,12 @@ router
    *         prompt:
    *           type: string
    *           example: You are an expert virtual assistant. Answer concisely.
+   *         model:
+   *           type: string
+   *           example: 3.5
+   *         questions:
+   *           type: string
+   *           example: ["lorem", "niamdir"]
    *         created_at:
    *           type: string
    *           format: date-time
@@ -1941,6 +1947,12 @@ router
    *               prompt:
    *                 type: string
    *                 example: You are a helpful assistant that answers in a friendly tone.
+   *               model:
+   *                 type: string
+   *                 example: GPT 3.5
+   *               questions:
+   *                 type: string
+   *                 example: ["lorem", "kimdir"].
    *     responses:
    *       201:
    *         description: AI configuration created successfully
@@ -2011,6 +2023,12 @@ router
    *               prompt:
    *                 type: string
    *                 example: You are a helpful assistant that answers in a friendly tone.
+   *               model:
+   *                 type: string
+   *                 example: GPT 3.5
+   *               questions:
+   *                 type: string
+   *                 example: ["lorem", "kimdir"].
    *     responses:
    *       200:
    *         description: AI configuration updated successfully

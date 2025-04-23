@@ -61,14 +61,18 @@ module.exports = {
             name,
             token,
             mode_id,
-            prompt
+            prompt,
+            model,
+            questions
          } = req.body
 
          const addAi = await model.addAi(
             name,
             token,
             mode_id,
-            prompt
+            prompt,
+            model,
+            questions
          )
 
          if (addAi) {
@@ -100,7 +104,9 @@ module.exports = {
             name,
             token,
             mode_id,
-            prompt
+            prompt,
+            model,
+            questions
          } = req.body
 
          const editAi = await model.editAi(
@@ -108,7 +114,9 @@ module.exports = {
             name,
             token,
             mode_id,
-            prompt
+            prompt,
+            model,
+            questions
          )
 
          if (editAi) {

@@ -79,8 +79,10 @@ CREATE TABLE articles (
 CREATE TABLE ai (
    id bigserial PRIMARY KEY,
    name text,
+   model text,
    token text,
    mode_id int,
    prompt text,
+   questions text [],
    created_at timestamptz DEFAULT CURRENT_TIMESTAMP
 );
