@@ -86,3 +86,14 @@ CREATE TABLE ai (
    questions text [],
    created_at timestamptz DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE price (
+   id bigserial PRiMARY KEY,
+   title_uz text,
+   title_ru text,
+   title_eng text,
+   period int,
+   price bigint,
+   sort_order int,
+   create_at timestamptz DEFAULT CURRENT_TIMESTAMP
+);

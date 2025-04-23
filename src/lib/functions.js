@@ -31,7 +31,16 @@ function getCurrentTimeFormatted() {
    return `${day}.${month}.${year} ${time}`;
 }
 
+const calculateExpiredDate = (perid) => {
+   const currentDate = new Date();
+   const expirationDate = new Date(currentDate);
+   expirationDate.setDate(expirationDate.getDate() + Number(perid));
+   const expirationTimestamp = Math.floor(expirationDate.getTime() / 1000);
+   return expirationTimestamp
+}
+
 module.exports = {
    generateOTP,
-   getCurrentTimeFormatted
+   getCurrentTimeFormatted,
+   calculateExpiredDate
 }
