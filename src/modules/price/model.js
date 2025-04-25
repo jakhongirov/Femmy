@@ -49,7 +49,8 @@ const addPrice = (
       title_eng,
       period,
       price,
-      sort_order
+      sort_order,
+      monthly_price
    )
 }
 const editPrice = (
@@ -59,7 +60,8 @@ const editPrice = (
    title_eng,
    period,
    price,
-   sort_order
+   sort_order,
+   monthly_price
 ) => {
    const QUERY = `
       UPDATE
@@ -85,7 +87,8 @@ const editPrice = (
       title_eng,
       period,
       price,
-      sort_order
+      sort_order,
+      monthly_price
    )
 }
 const deletePrice = (id) => {
