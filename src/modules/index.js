@@ -13,6 +13,7 @@ const categoiresArticle = require('./categories/categories')
 const articles = require('./articles/articles')
 const ai = require('./ai/ai')
 const price = require('./price/price')
+const payment = require('./payment/payment')
 
 router
 
@@ -2464,5 +2465,8 @@ router
    *                   example: Interval Server Error
    */
   .delete('/price', AUTH, price.DELETE_PRICE)
+
+  .get("/payment/check/:id/:tarif/:amount", payment.CHECK)
+  .get("/payment/success/:id/:tarif", payment.SUCCESS)
 
 module.exports = router
