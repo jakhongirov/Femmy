@@ -30,6 +30,21 @@ const foundUser = (id) => {
 
    return fetch(QUERY, id)
 }
+const foundUserStatus = (id) => {
+   const QUERY = `
+      SELECT
+         name,
+         premium,
+         nimadir,
+         TO_TIMESTAMP(expired_date::BIGINT)::date AS expired_day
+      FROM
+         users
+      WHERE
+         id = $1;
+   `;
+
+   return fetch(QUERY, id)
+}
 const addTracking = (user_id, currentTime) => {
    const QUERY = `
       UPDATE
@@ -407,6 +422,7 @@ const deleteUser = (id) => {
 module.exports = {
    usersList,
    foundUser,
+   foundUserStatus,
    addTracking,
    checkUser,
    createUser,

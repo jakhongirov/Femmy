@@ -101,7 +101,7 @@ module.exports = {
    GET_STATUS: async (req, res) => {
       try {
          const { user_id } = req.params
-         const foundUser = await model.foundUser(user_id)
+         const foundUser = await model.foundUserStatus(user_id)
 
          if (foundUser) {
             return res.status(200).json({
@@ -110,7 +110,7 @@ module.exports = {
                data: {
                   name: foundUser.name,
                   premium: foundUser.premium,
-                  expired_date: foundUser.expired_date,
+                  expired_date: foundUser.expired_day,
                   nimadir: foundUser.nimadir,
                }
             })
