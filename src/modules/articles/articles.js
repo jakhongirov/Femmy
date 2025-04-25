@@ -11,18 +11,11 @@ module.exports = {
          if (limit && page) {
             const articlesList = await model.articlesList(limit, page, category_id, search)
 
-            if (articlesList?.length > 0) {
-               return res.status(200).json({
-                  status: 200,
-                  message: "Success",
-                  data: articlesList
-               })
-            } else {
-               return res.status(404).json({
-                  status: 404,
-                  message: "Not found"
-               })
-            }
+            return res.status(200).json({
+               status: 200,
+               message: "Success",
+               data: articlesList
+            })
 
          } else {
             return res.status(400).json({

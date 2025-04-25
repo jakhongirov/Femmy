@@ -36,18 +36,11 @@ module.exports = {
          const { lang, type } = req.query
          const categoriesArticle = await model.categoriesArticle(lang, type)
 
-         if (categoriesArticle?.length > 0) {
-            return res.status(200).json({
-               status: 200,
-               message: "Success",
-               data: categoriesArticle
-            })
-         } else {
-            return res.status(404).json({
-               status: 404,
-               message: "Not found"
-            })
-         }
+         return res.status(200).json({
+            status: 200,
+            message: "Success",
+            data: categoriesArticle
+         })
 
       } catch (error) {
          console.log(error);
@@ -63,18 +56,11 @@ module.exports = {
          const { id } = req.params
          const foundCategoryWithArticle = await model.foundCategoryWithArticle(id)
 
-         if (foundCategoryWithArticle) {
-            return res.status(200).json({
-               status: 200,
-               message: "Success",
-               data: foundCategoryWithArticle
-            })
-         } else {
-            return res.status(400).json({
-               status: 400,
-               message: "Bad request"
-            })
-         }
+         return res.status(200).json({
+            status: 200,
+            message: "Success",
+            data: foundCategoryWithArticle
+         })
 
       } catch (error) {
          console.log(error);
