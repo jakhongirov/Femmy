@@ -2258,6 +2258,9 @@ router
    *               price:
    *                 type: integer
    *                 example: 150000
+   *               monthly_price:
+   *                 type: integer
+   *                 example: 150000
    *               sort_order:
    *                 type: integer
    *                 example: 1
@@ -2344,6 +2347,9 @@ router
    *                 type: integer
    *                 example: 90
    *               price:
+   *                 type: integer
+   *                 example: 350000
+   *               monthly_price:
    *                 type: integer
    *                 example: 350000
    *               sort_order:

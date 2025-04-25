@@ -94,6 +94,7 @@ CREATE TABLE price (
    title_eng text,
    period int,
    price bigint,
+   monthly_price bigint,
    sort_order int,
    create_at timestamptz DEFAULT CURRENT_TIMESTAMP
 );

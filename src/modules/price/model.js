@@ -18,7 +18,8 @@ const addPrice = (
    title_eng,
    period,
    price,
-   sort_order
+   sort_order,
+   monthly_price
 ) => {
    const QUERY = `
       INSERT INTO
@@ -28,14 +29,16 @@ const addPrice = (
             title_eng,
             period,
             price,
-            sort_order
+            sort_order,
+            monthly_price
          ) VALUES (
             $1,
             $2,
             $3,
             $4,
             $5,
-            $6
+            $6,
+            $7
          ) RETURNING *;
    `;
 
@@ -67,7 +70,8 @@ const editPrice = (
          title_eng = $4,
          period = $5,
          price = $6,
-         sort_order = $7
+         sort_order = $7,
+         monthly_price = $8
       WHERE
          id = $1
       RETURNING *;

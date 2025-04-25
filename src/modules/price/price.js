@@ -35,7 +35,8 @@ module.exports = {
             title_eng,
             period,
             price,
-            sort_order
+            sort_order,
+            monthly_price
          } = req.body
          const addPrice = await model.addPrice(
             title_uz,
@@ -43,7 +44,8 @@ module.exports = {
             title_eng,
             period,
             price,
-            sort_order
+            sort_order,
+            monthly_price
          )
 
          if (addPrice) {
@@ -77,7 +79,8 @@ module.exports = {
             title_eng,
             period,
             price,
-            sort_order
+            sort_order,
+            monthly_price
          } = req.body
          const editPrice = await model.editPrice(
             id,
@@ -86,7 +89,8 @@ module.exports = {
             title_eng,
             period,
             price,
-            sort_order
+            sort_order,
+            monthly_price
          )
 
          if (editPrice) {
