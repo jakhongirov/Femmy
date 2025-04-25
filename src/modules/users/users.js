@@ -110,7 +110,8 @@ module.exports = {
                data: {
                   name: foundUser.name,
                   premium: foundUser.premium,
-                  nimadir: foundUser.nimadir
+                  expired_date: foundUser.expired_date,
+                  nimadir: foundUser.nimadir,
                }
             })
          } else {
