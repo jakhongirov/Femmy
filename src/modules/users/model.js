@@ -36,7 +36,10 @@ const foundUserStatus = (id) => {
          name,
          premium,
          nimadir,
-         TO_TIMESTAMP(expired_date::BIGINT)::date AS expired_day
+          CASE
+            WHEN expired_date ~ '^\d+$' THEN TO_TIMESTAMP(expired_date::BIGINT)::date
+            ELSE NULL
+         END AS expired_day
       FROM
          users
       WHERE
