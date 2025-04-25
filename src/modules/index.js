@@ -2220,7 +2220,7 @@ router
   *                   type: string
   *                   example: Interval Server Error
   */
-  .get('/price', AUTH, price.GET)
+  .get('/price', price.GET)
 
   /**
    * @swagger
