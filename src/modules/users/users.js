@@ -107,7 +107,7 @@ module.exports = {
             let formattedDate;
 
             if (Number(foundUser.expired_date) > 0) {
-               formattedDate = new Date(seconds * 1000).toISOString();
+               formattedDate = new Date(Number(foundUser.expired_date) * 1000).toISOString();
             }
 
             return res.status(200).json({
