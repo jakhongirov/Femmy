@@ -151,6 +151,7 @@ module.exports = {
             baby_born_date
          } = req.body
          const checkUser = await model.checkUser(phone_number.replace(/^(\+)?/, '+'))
+         console.log(req.body)
 
          if (checkUser) {
             return res.status(302).json({
@@ -254,6 +255,7 @@ module.exports = {
             phone_number,
             password
          } = req.body
+         console.log(req.body)
 
          const checkUser = await model.checkUser(phone_number.replace(/^(\+)?/, '+'))
 
@@ -316,6 +318,8 @@ module.exports = {
             nimadir,
             pincode
          } = req.body
+
+         console.log(req.body)
 
          if (name && name !== "null") {
             await model.editName(id, name)
