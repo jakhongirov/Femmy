@@ -319,7 +319,7 @@ module.exports = {
             pincode
          } = req.body
 
-         console.log(req.body)
+         console.log("edit", req.body)
 
          if (name && name !== "null") {
             await model.editName(id, name)
