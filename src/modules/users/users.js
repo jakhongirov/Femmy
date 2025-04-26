@@ -372,7 +372,7 @@ module.exports = {
             await model.editHeight(id, height)
          }
 
-         if (nimadir && nimadir !== "null") {
+         if (nimadir !== null && nimadir !== undefined && nimadir !== 'null') {
             await model.editNimadir(id, nimadir)
          }
          if (pincode && pincode !== "null") {

@@ -13,7 +13,7 @@ const categories = (lang) => {
 
    return fetchALL(QUERY)
 }
-const categoriesArticle = (lang, type) => {
+const categoriesArticle = (type) => {
    const QUERY = `
       WITH limited_articles AS (
          SELECT 
@@ -31,6 +31,8 @@ const categoriesArticle = (lang, type) => {
             ROW_NUMBER() OVER (PARTITION BY a.category_id ORDER BY a.created_at DESC) AS row_num
          FROM 
             articles a
+         ORDER BY
+            a.featured
       )
       SELECT 
          ca.id AS id,
@@ -64,13 +66,12 @@ const categoriesArticle = (lang, type) => {
          limited_articles la
       ON 
          ca.id = la.category_id AND la.row_num <= 10
-      WHERE
-         ca.lang = $1 ${type ? `and ca.type = '${type}'` : ""}
+         ${type ? `WHERE ca.type = '${type}'` : ""}
       GROUP BY 
          ca.id;
    `;
 
-   return fetchALL(QUERY, lang)
+   return fetchALL(QUERY)
 }
 const addCategory = (
    name,

@@ -10,7 +10,7 @@ const articlesList = (limit, page, category_id, search) => {
          ${category_id ? `WHERE category_id = ${category_id}` : ""}
          ${search ? `WHERE title ilike '%${search}%'` : ""}
       ORDER BY
-         id DESC
+         featured
       LIMIT $1
       OFFSET $2;
    `;
