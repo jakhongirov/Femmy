@@ -1,11 +1,17 @@
 const { fetchALL, fetch } = require('../../lib/postgres')
 
-const usersList = (limit, page) => {
+const usersList = (limit, page, id, phone) => {
    const QUERY = `
       SELECT
          *
       FROM
          users
+      ${
+         id && phone ? `
+            WHERE
+               id = ${id} and phone ilike '%${phone}%'
+         ` : id ? `WHERE id = ${id}` : phone ? `WHERE phone ilike '%${phone}%'` : ""   
+      }
       ORDER BY
          id DESC
       LIMIT $1

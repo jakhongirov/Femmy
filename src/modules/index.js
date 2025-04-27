@@ -369,6 +369,17 @@ router
    *         schema:
    *           type: integer
    *         description: Page number for pagination
+   *       - in: query
+   *         name: id
+   *         required: false
+   *         schema:
+   *           type: integer
+   *       - in: query
+   *         name: phone
+   *         required: false
+   *         schema:
+   *           type: string
+   *         description: user 
    *     responses:
    *       '200':
    *         description: A list of users
