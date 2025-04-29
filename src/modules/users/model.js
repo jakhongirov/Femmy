@@ -10,7 +10,7 @@ const usersList = (limit, page, id, phone) => {
          id && phone ? `
             WHERE
                id = ${id} and phone ilike '%${phone}%'
-         ` : id ? `WHERE id = ${id}` : phone ? `WHERE phone ilike '%${phone}%'` : ""   
+         ` : id ? `WHERE id = ${id}` : phone ? `WHERE phone_number ilike '%${phone}%'` : ""   
       }
       ORDER BY
          id DESC
