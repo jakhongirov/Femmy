@@ -14,6 +14,7 @@ const articles = require('./articles/articles')
 const ai = require('./ai/ai')
 const price = require('./price/price')
 const payment = require('./payment/payment')
+const banners = require('./banners/banners')
 
 router
 
@@ -2479,5 +2480,356 @@ router
 
   .get("/payment/check/:id/:tarif/:amount", payment.CHECK)
   .get("/payment/success/:id/:tarif", payment.SUCCESS)
+
+  // BANNERS
+
+  /**
+   * @swagger
+   * tags:
+   *    name: Banner
+   *    description: Banner managing API
+   */
+
+  /**
+   * @swagger
+   * components:
+   *   schemas:
+   *     Banner:
+   *       type: object
+   *       properties:
+   *         id:
+   *           type: integer
+   *         title_uz:
+   *           type: string
+   *         title_ru:
+   *           type: string
+   *         title_eng:
+   *           type: string
+   *         description_uz:
+   *           type: string
+   *         description_ru:
+   *           type: string
+   *         description_eng:
+   *           type: string
+   *         image_url:
+   *           type: string
+   *         image_name:
+   *           type: string
+   *         create_at:
+   *           type: string
+   *           format: date-time
+   */
+
+  /**
+   * @swagger
+   * /banners/list/admin:
+   *   get:
+   *     summary: Get a paginated list of banners (admin access)
+   *     tags: [Banner]
+   *     security:
+   *       - token: []
+   *     parameters:
+   *       - in: query
+   *         name: limit
+   *         schema:
+   *           type: integer
+   *         required: true
+   *         description: Number of banners per page
+   *       - in: query
+   *         name: page
+   *         schema:
+   *           type: integer
+   *         required: true
+   *         description: Page number
+   *     responses:
+   *       200:
+   *         description: A list of banners
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 status:
+   *                   type: integer
+   *                 message:
+   *                   type: string
+   *                 data:
+   *                   type: array
+   *                   items:
+   *                     $ref: '#/components/schemas/Banner'
+   *       400:
+   *         description: Bad request (missing limit or page)
+   *       401:
+   *         description: Unauthorized
+   *       404:
+   *         description: Not found
+   *       500:
+   *         description: Internal Server Error
+   */
+  .get('/banners/list/admin', AUTH, banners.GET_ADMIN)
+
+  /**
+   * @swagger
+   * /banners/list:
+   *   get:
+   *     summary: Get a list of banners by language and mode
+   *     tags: [Banner]
+   *     parameters:
+   *       - in: query
+   *         name: lang
+   *         schema:
+   *           type: string
+   *           enum: [uz, ru, eng]
+   *         required: true
+   *         description: Language code for banner content
+   *       - in: query
+   *         name: mode
+   *         schema:
+   *           type: string
+   *         required: false
+   *         description: Display mode or category (optional)
+   *     responses:
+   *       200:
+   *         description: Successfully retrieved list of banners
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 status:
+   *                   type: integer
+   *                 message:
+   *                   type: string
+   *                 data:
+   *                   type: array
+   *                   items:
+   *                     $ref: '#/components/schemas/Banner'
+   *       500:
+   *         description: Internal Server Error
+   */
+  .get('/banners/list', banners.GET_LIST)
+
+  /**
+   * @swagger
+   * /banner/{id}:
+   *   get:
+   *     summary: Get a banner by ID and language
+   *     tags: [Banner]
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         schema:
+   *           type: integer
+   *         description: The banner ID
+   *       - in: query
+   *         name: lang
+   *         required: true
+   *         schema:
+   *           type: string
+   *           enum: [uz, ru, eng]
+   *         description: Language code for banner content
+   *     responses:
+   *       200:
+   *         description: Successfully retrieved banner
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 status:
+   *                   type: integer
+   *                 message:
+   *                   type: string
+   *                 data:
+   *                   $ref: '#/components/schemas/Banner'
+   *       404:
+   *         description: Banner not found
+   *       500:
+   *         description: Internal Server Error
+   */
+  .get('/banner/:id', banners.GET_ID)
+
+  /**
+   * @swagger
+   * /banner/add:
+   *   post:
+   *     summary: Add a new banner
+   *     tags: [Banner]
+   *     security:
+   *       - bearerAuth: []
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         multipart/form-data:
+   *           schema:
+   *             type: object
+   *             required:
+   *               - title_uz
+   *               - title_ru
+   *               - title_eng
+   *               - description_uz
+   *               - description_ru
+   *               - description_eng
+   *               - image
+   *             properties:
+   *               title_uz:
+   *                 type: string
+   *               title_ru:
+   *                 type: string
+   *               title_eng:
+   *                 type: string
+   *               description_uz:
+   *                 type: string
+   *               description_ru:
+   *                 type: string
+   *               description_eng:
+   *                 type: string
+   *               image:
+   *                 type: string
+   *                 format: binary
+   *     responses:
+   *       201:
+   *         description: Banner successfully added
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 status:
+   *                   type: integer
+   *                 message:
+   *                   type: string
+   *                 data:
+   *                   $ref: '#/components/schemas/Banner'
+   *       400:
+   *         description: Bad request
+   *       500:
+   *         description: Internal Server Error
+   */
+  .post('/banner/add', AUTH, banners.ADD_BANNER)
+
+  /**
+   * @swagger
+   * /banner/edit:
+   *   put:
+   *     summary: Edit an existing banner
+   *     tags: [Banner]
+   *     security:
+   *       - bearerAuth: []
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         multipart/form-data:
+   *           schema:
+   *             type: object
+   *             required:
+   *               - id
+   *               - title_uz
+   *               - title_ru
+   *               - title_eng
+   *               - description_uz
+   *               - description_ru
+   *               - description_eng
+   *             properties:
+   *               id:
+   *                 type: integer
+   *               title_uz:
+   *                 type: string
+   *               title_ru:
+   *                 type: string
+   *               title_eng:
+   *                 type: string
+   *               description_uz:
+   *                 type: string
+   *               description_ru:
+   *                 type: string
+   *               description_eng:
+   *                 type: string
+   *               image:
+   *                 type: string
+   *                 format: binary
+   *     responses:
+   *       200:
+   *         description: Banner successfully updated
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 status:
+   *                   type: integer
+   *                 message:
+   *                   type: string
+   *                 data:
+   *                   $ref: '#/components/schemas/Banner'
+   *       400:
+   *         description: Bad request
+   *       404:
+   *         description: Not found
+   *       500:
+   *         description: Internal Server Error
+   */
+  .put('/banner/edit', AUTH, banners.EDIT_BANNER)
+
+  /**
+   * @swagger
+   * /banner/{id}:
+   *   delete:
+   *     summary: Delete a banner by ID
+   *     tags: [Banner]
+   *     security:
+   *       - bearerAuth: []
+   *     parameters:
+   *       - name: id
+   *         in: path
+   *         required: true
+   *         description: Banner ID to delete
+   *         schema:
+   *           type: integer
+   *     responses:
+   *       200:
+   *         description: Successfully deleted banner
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 status:
+   *                   type: integer
+   *                   example: 200
+   *                 message:
+   *                   type: string
+   *                   example: Success
+   *       400:
+   *         description: Bad request
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 status:
+   *                   type: integer
+   *                   example: 400
+   *                 message:
+   *                   type: string
+   *                   example: Bad request
+   *       404:
+   *         description: Banner not found
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 status:
+   *                   type: integer
+   *                   example: 404
+   *                 message:
+   *                   type: string
+   *                   example: Not found
+   *       500:
+   *         description: Internal Server Error
+   */
+  .delete('/banner/:id', AUTH, banners.DELETE_BANNER)
 
 module.exports = router

@@ -98,3 +98,16 @@ CREATE TABLE price (
    sort_order int,
    create_at timestamptz DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE banners (
+   id bigserial PRIMARY KEY,
+   title_uz text,
+   title_ru text,
+   title_eng text,
+   description_uz text,
+   description_ru text,
+   description_eng text,
+   image_url text,
+   image_name text,
+   create_at timestamptz DEFAULT CURRENT_TIMESTAMP
+);
