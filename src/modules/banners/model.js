@@ -22,11 +22,11 @@ const bannerListLang = (lang, mode) => {
    let data = '*';
 
    if (lang == 'uz') {
-      data = `id, title_uz AS title, description_uz AS description, image_url, image_name`;
+      data = `id, title_uz AS title, description_uz AS description, mode, image_url, image_name`;
    } else if (lang == 'ru') {
-      data = `id, title_ru AS title, description_ru AS description, image_url, image_name`;
+      data = `id, title_ru AS title, description_ru AS description, mode, image_url, image_name`;
    } else if (lang == 'en') {
-      data = `id, title_eng AS title, description_eng AS description, image_url, image_name`;
+      data = `id, title_eng AS title, description_eng AS description, mode, image_url, image_name`;
    } else {
       data = '*'
    }
@@ -51,11 +51,11 @@ const bannerId = (id, lang) => {
    let data = '*';
 
    if (lang == 'uz') {
-      data = `id, title_uz AS title, description_uz AS description, image_url, image_name`;
+      data = `id, title_uz AS title, description_uz AS description, mode, image_url, image_name`;
    } else if (lang == 'ru') {
-      data = `id, title_ru AS title, description_ru AS description, image_url, image_name`;
+      data = `id, title_ru AS title, description_ru AS description, mode, image_url, image_name`;
    } else if (lang == 'en') {
-      data = `id, title_eng AS title, description_eng AS description, image_url, image_name`;
+      data = `id, title_eng AS title, description_eng AS description, mode, image_url, image_name`;
    } else {
       data = '*'
    }
@@ -78,6 +78,7 @@ const addBanner = (
    description_uz,
    description_ru,
    description_eng,
+   mode,
    imgUrl,
    imgName
 ) => {
@@ -90,6 +91,7 @@ const addBanner = (
             description_uz,
             description_ru,
             description_eng,
+            mode,
             image_url,
             image_name
          ) VALUES (
@@ -100,7 +102,8 @@ const addBanner = (
             $5,
             $6,
             $7
-            $8
+            $8,
+            $9
          ) RETURNING *;
    `;
 
@@ -112,6 +115,7 @@ const addBanner = (
       description_uz,
       description_ru,
       description_eng,
+      mode,
       imgUrl,
       imgName
    )
@@ -124,6 +128,7 @@ const editBanner = (
    description_uz,
    description_ru,
    description_eng,
+   mode,
    imgUrl,
    imgName
 ) => {
@@ -137,8 +142,9 @@ const editBanner = (
          description_uz = $5,
          description_ru = $6,
          description_eng = $7,
-         image_url = $8,
-         image_name = $9
+         mode = $8,
+         image_url = $9,
+         image_name = $10
       WHERE
          id = $1
       RETURNING *;
@@ -153,6 +159,7 @@ const editBanner = (
       description_uz,
       description_ru,
       description_eng,
+      mode,
       imgUrl,
       imgName
    )

@@ -93,7 +93,8 @@ module.exports = {
             title_eng,
             description_uz,
             description_ru,
-            description_eng
+            description_eng,
+            mode
          } = req.body
 
          const imgUrl = uploadPhoto ? `${process.env.BACKEND_URL}/${uploadPhoto?.filename}` : null;
@@ -106,6 +107,7 @@ module.exports = {
             description_uz,
             description_ru,
             description_eng,
+            mode,
             imgUrl,
             imgName
          )
@@ -142,7 +144,8 @@ module.exports = {
             title_eng,
             description_uz,
             description_ru,
-            description_eng
+            description_eng,
+            mode
          } = req.body
          const bannerId = await model.bannerId(id, lang)
 
@@ -167,6 +170,7 @@ module.exports = {
                description_uz,
                description_ru,
                description_eng,
+               mode,
                imgUrl,
                imgName
             )

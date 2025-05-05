@@ -2511,6 +2511,8 @@ router
    *           type: string
    *         description_eng:
    *           type: string
+   *         mode:
+   *           type: integer
    *         image_url:
    *           type: string
    *         image_name:
@@ -2685,6 +2687,8 @@ router
    *                 type: string
    *               description_eng:
    *                 type: string
+   *               mode:
+   *                 type: integer
    *               image:
    *                 type: string
    *                 format: binary
@@ -2746,6 +2750,8 @@ router
    *                 type: string
    *               description_eng:
    *                 type: string
+   *               mode:
+   *                 type: integer
    *               image:
    *                 type: string
    *                 format: binary

@@ -109,5 +109,6 @@ CREATE TABLE banners (
    description_eng text,
    image_url text,
    image_name text,
+   mode int,
    create_at timestamptz DEFAULT CURRENT_TIMESTAMP
 );
