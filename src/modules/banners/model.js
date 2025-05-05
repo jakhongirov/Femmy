@@ -37,7 +37,7 @@ const bannerListLang = (lang, mode) => {
       FROM
          banners
       WHERE
-         mode = $1
+         mode = $1 or mode = 0
       ORDER BY
          id DESC;
    `;
