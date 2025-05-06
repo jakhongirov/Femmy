@@ -147,7 +147,7 @@ module.exports = {
             description_eng,
             mode
          } = req.body
-         const bannerId = await model.bannerId(id, lang)
+         const bannerId = await model.bannerId(id)
 
          if (bannerId) {
             if (uploadPhoto) {
