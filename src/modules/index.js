@@ -2711,7 +2711,7 @@ router
    *       500:
    *         description: Internal Server Error
    */
-  .post('/banner/add', AUTH, banners.ADD_BANNER)
+  .post('/banner/add', AUTH, FileUpload.single('image'), banners.ADD_BANNER)
 
   /**
    * @swagger
@@ -2776,7 +2776,7 @@ router
    *       500:
    *         description: Internal Server Error
    */
-  .put('/banner/edit', AUTH, banners.EDIT_BANNER)
+  .put('/banner/edit', AUTH, FileUpload.single('image'), banners.EDIT_BANNER)
 
   /**
    * @swagger
