@@ -100,8 +100,6 @@ module.exports = {
          const imgUrl = uploadPhoto ? `${process.env.BACKEND_URL}/${uploadPhoto?.filename}` : null;
          const imgName = uploadPhoto ? uploadPhoto?.filename : null;
 
-         console.log(req.body)
-
          const addBanner = await model.addBanner(
             title_uz,
             title_ru,
