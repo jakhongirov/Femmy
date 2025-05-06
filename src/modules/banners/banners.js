@@ -207,7 +207,7 @@ module.exports = {
    DELETE_BANNER: async (req, res) => {
       try {
          const { id } = req.params
-         const bannerId = await model.bannerId(id, lang)
+         const bannerId = await model.bannerId(id)
 
          if (bannerId) {
             const deleteBanner = await model.deleteBanner(id)
